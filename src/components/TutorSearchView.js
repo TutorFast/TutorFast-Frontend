@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Search, Input, Accordion } from 'semantic-ui-react';
+import { Search, Input, Form, Accordion } from 'semantic-ui-react';
 import { connect } from 'react-redux';
 import { Range as _Range, createSliderWithTooltip } from 'rc-slider';
 const Range = createSliderWithTooltip(_Range);
@@ -52,12 +52,15 @@ class TutorSearchView extends Component {
         subjects: this.state.subject
           ? [this.state.subject]
           : undefined,
+        zipCode: this.state.zipCode
+          ? this.state.zipCode
+          : undefined,
       })
         .then(tutors => this.setState({ tutors, isLoading: false }))
         .catch(console.log);
     }
 
-  handleResultSelect = (_, { result }) => this.setState({ subject: result })
+  handleResultSelect = (_, result) => this.setState({ subject: result })
 
   handleSearchChange = (_, value) => this.setState({ subject: value })
 
@@ -73,41 +76,55 @@ class TutorSearchView extends Component {
 
     return (
       <Layout>
-        <Accordion styled panels={[{
-          title: 'Advanced',
-          content: <div>
-            <Range
-              max={maxSliderWage}
-              min={minSliderWage}
-              pushable={1}
-              allowCross={false}
-              step={1}
-              onChange={this.handleSliderChange}
-              defaultValue={[minSliderWage, maxSliderWage]}
-              value={[minWage, maxWage]}
-              marks={
-                {
-                  [minSliderWage]: `$${minSliderWage}/hour`,
-                  [maxSliderWage]: `$${maxSliderWage}/hour`,
-                }
-              }
-              tipFormatter={value => `$${value}/hour`}/>
-            <Input
-              fluid
-              placeholder='Billy Bob Joe the Tutero'
-              value={this.state.username}
-              onChange={this.handleUsernameChange}/>
-            <Input
-              fluid
-              placeholder='90210'
-              value={this.state.zipCode}
-              onChange={this.handleZipCodeChange}/>
-          </div>,
-        }]} />
+        <Accordion
+          style={{ margin: '0 0 20px 0' }}
+          styled
+          fluid
+          panels={[{
+            title: 'Advanced',
+            content: <div>
+              <Form style={{ display: 'flex' }}>
+                <Form.Group style={{ width: '100%' }}>
+                  <Form.Field style={{ flex: 1 }}>
+                    <label>Username</label>
+                    <Input
+                      placeholder='Billy Bob Joe the Tutero'
+                      value={this.state.username}
+                      onChange={this.handleUsernameChange}/>
+                  </Form.Field>
+                  <Form.Field style={{ flex: 1 }}>
+                    <label>ZIP Code</label>
+                    <Input
+                      placeholder='90210'
+                      value={this.state.zipCode}
+                      onChange={this.handleZipCodeChange}/>
+                  </Form.Field>
+                </Form.Group>
+              </Form>
+              <div style={{ margin: '0px 15px 10px 15px' }}>
+                <Range
+                  max={maxSliderWage}
+                  min={minSliderWage}
+                  pushable={1}
+                  allowCross={false}
+                  step={1}
+                  onChange={this.handleSliderChange}
+                  defaultValue={[minSliderWage, maxSliderWage]}
+                  value={[minWage, maxWage]}
+                  marks={
+                    {
+                      [minSliderWage]: `$${minSliderWage}/hour`,
+                      [maxSliderWage]: `$${maxSliderWage}/hour`,
+                    }
+                  }
+                  tipFormatter={value => `$${value}/hour`}/>
+              </div>
+            </div>,
+          }]} />
 
         <Search input={{ fluid: true }} fluid
           loading={isLoading}
-          open
+          open={this.state.tutors.length !== 0}
           onResultSelect={this.handleResultSelect}
           onSearchChange={this.handleSearchChange}
           results={
