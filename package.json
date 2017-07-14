@@ -44,6 +44,7 @@
     "react-redux": "^5.0.5",
     "react-router-dom": "^4.1.1",
     "react-router-redux": "next",
+    "react-router-transition": "^0.1.1",
     "redux": "^3.7.0",
     "sass-loader": "^6.0.6",
     "semantic-ui-react": "^0.70.0",
