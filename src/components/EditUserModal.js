@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { Form, Message, Modal, Button, Input, Label } from 'semantic-ui-react';
 import { validate as validateEmail } from 'email-validator';
 
-import { validateZipCode, validateRate } from '~/util';
+import { validateZipCode, validateWage } from '~/util';
 
 import EditableList from './EditableList';
 
@@ -19,7 +19,7 @@ class EditUserForm extends Component {
       username: false,
       zipCode: false,
       isTutor: false,
-      rate: false,
+      wage: false,
     },
   }
 
@@ -28,7 +28,7 @@ class EditUserForm extends Component {
     username: this.props.user.username,
     zipCode: this.props.user.zipCode,
     isTutor: this.props.user.isTutor,
-    rate: this.props.user.rate,
+    wage: this.props.user.wage,
     subjects: [...this.props.user.subjects],
     success: this.props.success,
     errors: [...this.props.errors],
@@ -48,7 +48,7 @@ class EditUserForm extends Component {
       isTutor: boolean,
       subjects: Array<string>,
       zipCode: ?number,
-      rate: number,
+      wage: number,
     },
     onSave: Function,
     onCancel: Function,
@@ -60,7 +60,7 @@ class EditUserForm extends Component {
       username: boolean,
       zipCode: boolean,
       isTutor: boolean,
-      rate: boolean,
+      wage: boolean,
     }
   }
 
@@ -87,7 +87,7 @@ class EditUserForm extends Component {
       'isTutor',
       'zipCode',
       'subjects',
-      'rate',
+      'wage',
     ].reduce(
       (u, field) =>
         field in this.state
@@ -106,7 +106,7 @@ class EditUserForm extends Component {
     email: !this.state.email || validateEmail(this.state.email),
     isTutor: true,
     zipCode: !this.state.zipCode || validateZipCode(this.state.zipCode),
-    rate: !this.state.rate || validateRate(this.state.rate),
+    wage: !this.state.wage || validateWage(this.state.wage),
   })
 
   computeFieldErrors = () => ({
@@ -122,9 +122,9 @@ class EditUserForm extends Component {
     zipCode:
       !this.computeFieldValidity().zipCode ||
       this.props.fieldErrors.zipCode,
-    rate:
-      !this.computeFieldValidity().rate ||
-      this.props.fieldErrors.rate,
+    wage:
+      !this.computeFieldValidity().wage ||
+      this.props.fieldErrors.wage,
   })
 
   render() {
@@ -171,15 +171,15 @@ class EditUserForm extends Component {
               onChange={this.handleChange} />
 
             {this.state.isTutor ? <Form.Field>
-              <label>Hourly Rate</label>
+              <label>Hourly Wage</label>
               <Input
-                name='rate'
+                name='wage'
                 autoComplete='off'
                 labelPosition='right'
-                error={fieldErrors.rate}
+                error={fieldErrors.wage}
                 onChange={this.handleChange}
-                defaultValue={this.props.user.rate}
-                placeholder={this.props.user.rate}>
+                defaultValue={this.props.user.wage}
+                placeholder={this.props.user.wage}>
 
                 <Label>$</Label>
                 <input />

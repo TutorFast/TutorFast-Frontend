@@ -47,8 +47,8 @@ export default
       {user.isTutor ? <List.Item>
         <List.Icon name='dollar' size='large' verticalAlign='middle' />
         <List.Content>
-          <List.Header>{`$${user.rate}/hour`}</List.Header>
-          <List.Description>Your hourly rate.</List.Description>
+          <List.Header>{`$${user.wage}/hour`}</List.Header>
+          <List.Description>Your hourly wage.</List.Description>
         </List.Content>
       </List.Item> : null}
       {user.isTutor ? <List.Item>
