@@ -19,6 +19,11 @@ class SignUpForm extends Component {
         pristine: true,
         value: '',
       },
+      subjects: [],
+      wage: {
+        pristine: true,
+        value: ''
+      },
       isTutor: false,
       success: props.success,
       errors: [...props.errors],
@@ -57,14 +62,28 @@ class SignUpForm extends Component {
     }
   }
 
-  handleChange = (e, { name, value }) =>
+  handleChange = (e, { name, value }) => {
     this.setState({ [name]: { value, pristine: false } })
+    //console.log(`${name} = ${value}`);
+  }
 
   handleCheckboxChange = () => {
     this.setState({isTutor: !this.state.isTutor});
   }
 
+  handleSubjectsChange = (e, {name, value}) => {
+    var list = value.split(',');
+    this.setState({subjects: []});
+
+    for (var i = 0; i < list.length; i++) {
+      this.state.subjects.push(list[i]);
+    }
+
+    console.log(`subjects after change: ${this.state.subjects}`);
+  }
+
   handleSubmit = () => {
+
     const errors = Object.entries(this.computeFieldValidity())
       .filter(([_, validity]) => !validity)
       .map(([field]) => field)
@@ -76,21 +95,27 @@ class SignUpForm extends Component {
       username: { ...this.state.username, pristine: false },
       password: { ...this.state.password, pristine: false },
       email: { ...this.state.email, pristine: false },
-      isTutor: false,
     });
 
 
     // if there are errors dont submit
     if (errors.length) return;
 
-    const { username, password, email, isTutor } = this.state;
+    const { username, password, email, isTutor, wage, subjects } = this.state;
     this.props.onSubmit({
       username: username.value,
       password: password.value,
       email: email.value,
       isTutor: isTutor,
+      wage: wage,
+      subjects: subjects,
     });
-  }
+
+    /*console.log(`wage: ${this.state.wage}, ${wage}`);
+    console.log(`isTutor: ${this.state.isTutor}, ${isTutor}`);
+    console.log(`subjects: ${this.state.subjects}, ${subjects}`);
+    */
+}
 
   computeFieldValidity = () => ({
     username: this.state.username.value,
@@ -116,6 +141,8 @@ class SignUpForm extends Component {
   render() {
     const { errors, success } = this.state;
     const fieldErrors = this.computeFieldErrors();
+
+    var subjects = [];
 
     return (
       <Form
@@ -151,6 +178,28 @@ class SignUpForm extends Component {
           value={this.state.isTutor}
         />
 
+        
+        {this.state.isTutor
+          ? <Form.Input
+            name='wage'
+            label='Wage'
+            placeholder='Wage'
+            onChange={this.handleChange}
+          />
+          : null
+        }
+                
+        {this.state.isTutor
+          ? 
+            <Form.Input
+            name='subjects'
+            label='Subjects separated by commas'
+            placeholder='Ex. "Algebra, US History, Biology, etc"'
+            onChange={this.handleSubjectsChange}
+          /> 
+          : null
+        }
+      
         <Form.Button content='Sign Up!' />
 
         <Message
