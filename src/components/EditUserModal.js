@@ -47,7 +47,7 @@ class EditUserForm extends Component {
       username: string,
       isTutor: boolean,
       subjects: Array<string>,
-      zipCode: ?number,
+      zipCode?: number,
       wage: number,
     },
     onSave: Function,

@@ -12,13 +12,12 @@ import TutorSearchView from '~/components/TutorSearchView';
 
 import PrivateRoute from './PrivateRoute';
 
-
 export default () =>
   <div>
     <Menubar />
     <Route render={({ location }) =>
       <RouteTransition
-        pathname={location.pathname}
+        pathname={location.pathname.split('/').slice(0, 2).join('/')}
         style={{ position: 'absolute', left: 0, right: 0 }}
         atEnter={{ translateX: 100 }}
         atLeave={{ translateX: -100 }}
