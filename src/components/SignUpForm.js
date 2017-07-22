@@ -48,6 +48,7 @@ class SignUpForm extends Component {
       username: false,
       password: false,
       wage: false,
+      zipCode: false,
       subjects: false,
     },
   }
@@ -198,7 +199,6 @@ class SignUpForm extends Component {
               <label>ZIP Code</label>
               <Input
                 name='zipCode'
-                autoComplete='off'
                 error={fieldErrors.zipCode}
                 onChange={this.handleChange} />
             </Form.Field> : null}
