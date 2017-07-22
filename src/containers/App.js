@@ -34,7 +34,7 @@ export default () =>
           <Route path='/hello' component={HelloWorld} />
           <Route path='/sign-up' component={SignUp} />
           <Route path='/sign-in' component={SignIn} />
-          <Route path='/payment' component={PaymentForm} />
+          <PrivateRoute path='/payment' component={PaymentForm} />
           <Route path='/search' render={
             () => <TutorSearchView maxSliderWage={50} minSliderWage={0} />
           } />

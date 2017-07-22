@@ -12,6 +12,7 @@ import Layout from './LayoutCenterSmall';
 import UserFields from './UserFields';
 import EditUserModal from './EditUserModal';
 import DeleteUserModal from './DeleteUserModal';
+import SetPaymentModal from './SetPaymentModal';
 
 import { updateUser as updateUserFetch, deleteUser } from '~/fetches';
 import { updateUser as updateUserAction, signOut } from '~/actions';
@@ -26,6 +27,7 @@ class UserView extends Component {
   props: {
     user: {
       token: string,
+      card: string,
     },
     onEdit: () => {},
     onDeleteModal: () => {},
@@ -48,6 +50,8 @@ class UserView extends Component {
     ;
   }
 
+  handleSetPayment = this.props.onSetPayment;
+
   render() {
     return (
       <Layout>
@@ -57,8 +61,8 @@ class UserView extends Component {
           <Divider />
 
           <Button primary onClick={this.handleEdit}>Edit</Button>
+          <Button positive onClick={this.handleSetPayment}>Payment</Button>
           <Button negative onClick={this.handleDeleteModal} floated='right'>Delete</Button>
-
 
           <Route
             path='/user/delete'
@@ -81,6 +85,11 @@ class UserView extends Component {
                   onCancel={this.handleCancel} />
             } />
 
+          <Route
+            path='/user/payment'
+            component={SetPaymentModal} />
+
+
         </Segment>
       </Layout>
     );
@@ -88,12 +97,11 @@ class UserView extends Component {
 }
 
 export default connect(
-  ({ user }) => ({
-    user,
-  }),
+  ({ user }) => ({ user }),
   dispatch => ({
     onEdit: () => dispatch(push('/user/edit')),
     onCancel: () => dispatch(push('/user')),
+    onSetPayment: () => dispatch(push('/user/payment')),
     onSave: (userUpdate, token) =>
       updateUserFetch({ token, ...userUpdate })
         .then(({ user }) => dispatch(updateUserAction(user)))
