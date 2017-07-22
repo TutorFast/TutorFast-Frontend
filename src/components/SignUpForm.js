@@ -19,11 +19,11 @@ class SignUpForm extends Component {
         pristine: true,
         value: '',
       },
-      subjects: [],
       wage: {
         pristine: true,
         value: ''
       },
+      subjects: [],
       isTutor: false,
       success: props.success,
       errors: [...props.errors],
@@ -39,6 +39,8 @@ class SignUpForm extends Component {
       email: false,
       username: false,
       password: false,
+      wage: false,
+      subjects: false,
     },
   }
 
@@ -59,6 +61,8 @@ class SignUpForm extends Component {
       email: boolean,
       username: boolean,
       password: boolean,
+      wage: boolean,
+      subjects: boolean,
     }
   }
 
@@ -73,13 +77,7 @@ class SignUpForm extends Component {
 
   handleSubjectsChange = (e, {name, value}) => {
     var list = value.split(',');
-    this.setState({subjects: []});
-
-    for (var i = 0; i < list.length; i++) {
-      this.state.subjects.push(list[i]);
-    }
-
-    console.log(`subjects after change: ${this.state.subjects}`);
+    this.setState({subjects: [list]});
   }
 
   handleSubmit = () => {
@@ -107,20 +105,17 @@ class SignUpForm extends Component {
       password: password.value,
       email: email.value,
       isTutor: isTutor,
-      wage: wage,
+      wage: wage.value,
       subjects: subjects,
-    });
-
-    /*console.log(`wage: ${this.state.wage}, ${wage}`);
-    console.log(`isTutor: ${this.state.isTutor}, ${isTutor}`);
-    console.log(`subjects: ${this.state.subjects}, ${subjects}`);
-    */
+    });  
 }
 
   computeFieldValidity = () => ({
     username: this.state.username.value,
     email: validate(this.state.email.value),
     password: this.state.password.value,
+    wage: this.state.wage.value,
+    subjects: this.state.subjects,
   })
 
   computeFieldErrors = () => ({
@@ -136,6 +131,13 @@ class SignUpForm extends Component {
       !this.state.password.pristine &&
       !this.computeFieldValidity().password ||
       this.props.fieldErrors.password,
+    wage:
+      !this.state.wage.pristine &&
+      !this.computeFieldValidity().wage ||
+      this.props.fieldErrors.wage,
+    subjects:
+      !this.computeFieldValidity().subjects ||
+      this.props.fieldErrors.subjects,
   })
 
   render() {
@@ -178,12 +180,14 @@ class SignUpForm extends Component {
           value={this.state.isTutor}
         />
 
-        
+        <br/>
+  
         {this.state.isTutor
           ? <Form.Input
             name='wage'
             label='Wage'
-            placeholder='Wage'
+            placeholder='Wage in $/hr'
+            error={fieldErrors.wage}
             onChange={this.handleChange}
           />
           : null
@@ -195,11 +199,14 @@ class SignUpForm extends Component {
             name='subjects'
             label='Subjects separated by commas'
             placeholder='Ex. "Algebra, US History, Biology, etc"'
+            error={fieldErrors.subjects}
             onChange={this.handleSubjectsChange}
           /> 
           : null
         }
-      
+
+        <br/>
+        
         <Form.Button content='Sign Up!' />
 
         <Message
