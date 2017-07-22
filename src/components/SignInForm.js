@@ -113,7 +113,7 @@ class SignInForm extends Component {
           error={fieldErrors.password}
           onChange={this.handleChange} />
 
-        <Form.Button content='Sign Up!' />
+        <Form.Button content='Sign In!' />
 
         <Message
           success

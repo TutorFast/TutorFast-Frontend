@@ -36,6 +36,7 @@
     "lodash": "^4.17.4",
     "memoize-bind": "^1.0.3",
     "node-sass": "^4.5.3",
+    "rc-slider": "^8.2.0",
     "react": "^15.6.1",
     "react-dom": "^15.6.1",
     "react-grid-system": "^2.9.2",
@@ -43,11 +44,13 @@
     "react-redux": "^5.0.5",
     "react-router-dom": "^4.1.1",
     "react-router-redux": "next",
+    "react-router-transition": "^0.1.1",
     "redux": "^3.7.0",
     "sass-loader": "^6.0.6",
     "semantic-ui-react": "^0.70.0",
     "style-loader": "^0.18.2",
     "webpack": "^3.0.0",
-    "webpack-dev-server": "^2.5.0"
+    "webpack-dev-server": "^2.5.0",
+    "with-query": "^1.0.2"
   }
 }

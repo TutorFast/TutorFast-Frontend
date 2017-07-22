@@ -28,6 +28,12 @@ const Menubar =
       onClick={onItemClick} />
 
     <Menu.Item
+      content='Find a Tutor'
+      name='/search'
+      active={path === '/search'}
+      onClick={onItemClick} />
+
+    <Menu.Item
       content='Hello'
       name='/hello'
       active={path === '/hello'}

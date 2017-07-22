@@ -13,8 +13,8 @@ import UserFields from './UserFields';
 import EditUserModal from './EditUserModal';
 import DeleteUserModal from './DeleteUserModal';
 
-import { updateUser as updateUserFetch } from '~/fetches';
-import { updateUser as updateUserAction } from '~/actions';
+import { updateUser as updateUserFetch, deleteUser } from '~/fetches';
+import { updateUser as updateUserAction, signOut } from '~/actions';
 
 
 class UserView extends Component {
@@ -62,7 +62,12 @@ class UserView extends Component {
 
           <Route
             path='/user/delete'
-            component={DeleteUserModal} />
+            render={() =>
+              <DeleteUserModal
+                token={this.props.user.token}
+                onCancel={this.handleCancel}
+                onDelete={this.handleDelete}/>
+            } />
 
           <Route
             path='/user/edit'
@@ -94,5 +99,9 @@ export default connect(
         .then(({ user }) => dispatch(updateUserAction(user)))
         .then(() => dispatch(push('/user'))),
     onDeleteModal: () => dispatch(push('/user/delete')),
+    onDelete: ({ password, token }) =>
+      deleteUser({ password, token })
+        .then(() => dispatch(push('/')))
+        .then(() => dispatch(signOut({}))),
   }),
 )(UserView);

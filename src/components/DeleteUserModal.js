@@ -23,7 +23,7 @@ class DeleteUserModal extends Component {
 
   handleDelete = () => {
     this.setState({ loading: true });
-    
+
     this.props
       .onDelete({
         password: this.state.password,
@@ -41,6 +41,7 @@ class DeleteUserModal extends Component {
 
         <Modal.Content>
           <Input
+            fluid
             placeholder='Password'
             name='password'
             type='password'
@@ -48,18 +49,21 @@ class DeleteUserModal extends Component {
         </Modal.Content>
 
         <Modal.Actions>
-          <Button basic inverted onClick={this.handleCancel}>
-            <Icon name='arrow circle outline left' />Reconsider
-          </Button>
+          <Button
+            basic
+            inverted
+            icon='arrow circle outline left'
+            content='Reconsider'
+            onClick={this.handleCancel} />
 
           <Button
             color='red'
             inverted
+            icon='minus circle'
+            content='Delete'
             loading={this.state.loading}
             disabled={!this.state.password}
-            onClick={this.handleDelete}>
-            <Icon name='circle minus' />Delete
-          </Button>
+            onClick={this.handleDelete} />
         </Modal.Actions>
 
         <Message error inverted hidden={!this.state.error}>
@@ -71,16 +75,4 @@ class DeleteUserModal extends Component {
   }
 }
 
-
-export default connect(
-  ({ user }) => ({ token: user.token }),
-
-  dispatch => ({
-    onDelete: ({ password, token }) =>
-      deleteUser({ password, token })
-        .then(() => dispatch(push('/')))
-        .then(() => dispatch(signOut({}))),
-
-    onCancel: () => dispatch(push('/user')),
-  })
-)(DeleteUserModal);
+export default DeleteUserModal;

@@ -1,7 +1,7 @@
 export default
 (from: {}): Function =>
   (to: {} = {}, key: string): {} => {
-    if (from[key] !== undefined) to[key] = from[key];
+    if (key in from) to[key] = from[key];
 
     return to;
   }

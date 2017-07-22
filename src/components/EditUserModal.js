@@ -1,6 +1,11 @@
 import React, { Component } from 'react';
-import { Form, Message, Modal, Button } from 'semantic-ui-react';
-import { validate } from 'email-validator';
+import { Form, Message, Modal, Button, Input, Label } from 'semantic-ui-react';
+import { validate as validateEmail } from 'email-validator';
+
+import { validateZipCode, validateWage } from '~/util';
+
+import EditableList from './EditableList';
+
 
 class EditUserForm extends Component {
   static defaultProps = {
@@ -12,23 +17,19 @@ class EditUserForm extends Component {
     fieldErrors: {
       email: false,
       username: false,
-      password: false,
+      zipCode: false,
+      isTutor: false,
+      wage: false,
     },
   }
 
   state = {
-    email: {
-      pristine: true,
-      value: '',
-    },
-    username: {
-      pristine: true,
-      value: '',
-    },
-    password: {
-      pristine: true,
-      value: '',
-    },
+    email: this.props.user.email,
+    username: this.props.user.username,
+    zipCode: this.props.user.zipCode,
+    isTutor: this.props.user.isTutor,
+    wage: this.props.user.wage,
+    subjects: [...this.props.user.subjects],
     success: this.props.success,
     errors: [...this.props.errors],
   }
@@ -44,6 +45,10 @@ class EditUserForm extends Component {
     user: {
       email: string,
       username: string,
+      isTutor: boolean,
+      subjects: Array<string>,
+      zipCode: ?number,
+      wage: number,
     },
     onSave: Function,
     onCancel: Function,
@@ -53,12 +58,14 @@ class EditUserForm extends Component {
     fieldErrors: {
       email: boolean,
       username: boolean,
-      password: boolean,
+      zipCode: boolean,
+      isTutor: boolean,
+      wage: boolean,
     }
   }
 
-  handleChange = (e, { name, value }) =>
-    this.setState({ [name]: { value, pristine: false } })
+  handleChange = (e, { name, value, checked }) =>
+    this.setState({ [name]: value || checked })
 
   handleCancel = this.props.onCancel
 
@@ -69,12 +76,7 @@ class EditUserForm extends Component {
       .map(field => `The ${field} field is not valid.`)
     ;
 
-    this.setState({
-      errors: [...errors],
-      username: { ...this.state.username, pristine: false },
-      password: { ...this.state.password, pristine: false },
-      email: { ...this.state.email, pristine: false },
-    });
+    this.setState({ errors: [...errors] });
 
     // if there are errors dont submit
     if (errors.length) return;
@@ -82,20 +84,29 @@ class EditUserForm extends Component {
     this.props.onSave([
       'username',
       'email',
-      'password',
+      'isTutor',
+      'zipCode',
+      'subjects',
+      'wage',
     ].reduce(
       (u, field) =>
-        this.state[field].value
-          ? { ...u, [field]: this.state[field].value }
+        field in this.state
+          ? { ...u, [field]: this.state[field] }
           : u,
       {},
     ));
   }
 
+  handleSubjects = subjects => {
+    this.setState({ subjects });
+  }
+
   computeFieldValidity = () => ({
     username: true,
-    email: !this.state.email.value || validate(this.state.email.value),
-    password: true,
+    email: !this.state.email || validateEmail(this.state.email),
+    isTutor: true,
+    zipCode: !this.state.zipCode || validateZipCode(this.state.zipCode),
+    wage: !this.state.wage || validateWage(this.state.wage),
   })
 
   computeFieldErrors = () => ({
@@ -105,9 +116,15 @@ class EditUserForm extends Component {
     email:
       !this.computeFieldValidity().email ||
       this.props.fieldErrors.email,
-    password:
-      !this.computeFieldValidity().password ||
-      this.props.fieldErrors.password,
+    isTutor:
+      !this.computeFieldValidity().isTutor ||
+      this.props.fieldErrors.isTutor,
+    zipCode:
+      !this.computeFieldValidity().zipCode ||
+      this.props.fieldErrors.zipCode,
+    wage:
+      !this.computeFieldValidity().wage ||
+      this.props.fieldErrors.wage,
   })
 
   render() {
@@ -115,7 +132,7 @@ class EditUserForm extends Component {
     const fieldErrors = this.computeFieldErrors();
 
     return (
-      <Modal open dimmer='blurring' size='small'>
+      <Modal open dimmer='blurring' size='small' onClose={this.handleCancel}>
         <Modal.Header>Edit User</Modal.Header>
         <Modal.Content>
           <Form
@@ -124,26 +141,69 @@ class EditUserForm extends Component {
             error={Boolean(errors.length)}
             loading={this.props.loading} >
 
-            <Form.Input
-              name='email'
-              label='Email'
-              placeholder={this.props.user.email}
-              error={fieldErrors.email}
+            <Form.Field>
+              <label>Email</label>
+              <Input
+                name='email'
+                autoComplete='off'
+                error={fieldErrors.email}
+                onChange={this.handleChange}
+                defaultValue={this.props.user.email}
+                placeholder={this.props.user.email} />
+            </Form.Field>
+
+            <Form.Field>
+              <label>Username</label>
+              <Input
+                name='username'
+                autoComplete='off'
+                error={fieldErrors.username}
+                onChange={this.handleChange}
+                defaultValue={this.props.user.username}
+                placeholder={this.props.user.username} />
+            </Form.Field>
+
+            <Form.Checkbox
+              name='isTutor'
+              label='Tutor'
+              defaultChecked={this.props.user.isTutor}
+              error={fieldErrors.isTutor}
               onChange={this.handleChange} />
 
-            <Form.Input
-              name='username'
-              label='Username'
-              placeholder={this.props.user.username}
-              error={fieldErrors.username}
-              onChange={this.handleChange} />
+            {this.state.isTutor ? <Form.Field>
+              <label>Hourly Wage</label>
+              <Input
+                name='wage'
+                autoComplete='off'
+                labelPosition='right'
+                error={fieldErrors.wage}
+                onChange={this.handleChange}
+                defaultValue={this.props.user.wage}
+                placeholder={this.props.user.wage}>
 
-            <Form.Input
-              name='password'
-              label='Password'
-              type='password'
-              error={fieldErrors.password}
-              onChange={this.handleChange} />
+                <Label>$</Label>
+                <input />
+                <Label>per hour</Label>
+              </Input>
+            </Form.Field> : null}
+
+            {this.state.isTutor ? <Form.Field>
+              <label>ZIP Code</label>
+              <Input
+                name='zipCode'
+                autoComplete='off'
+                error={fieldErrors.zipCode}
+                onChange={this.handleChange}
+                defaultValue={this.props.user.zipCode}
+                placeholder={this.props.user.zipCode} />
+            </Form.Field> : null}
+
+            {this.state.isTutor ? <Form.Field>
+              <label>Teachable Subjects</label>
+              <EditableList
+                list={this.state.subjects}
+                onChange={this.handleSubjects} />
+            </Form.Field> : null}
 
             <Message
               success
@@ -167,3 +227,4 @@ class EditUserForm extends Component {
 }
 
 export default EditUserForm;
+

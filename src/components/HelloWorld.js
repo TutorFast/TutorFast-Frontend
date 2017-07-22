@@ -7,7 +7,7 @@ const HelloWorld = (
   { onClick: Function, list: Array<string> }
 ) =>
   <div>
-    <h1 onClick={onClick}> Hello World! </h1>
+    <h1 onClick={onClick}> Hello sdk! </h1>
     <ul> {list.map(
       (itm, idx) => <li key={idx}> { itm } </li>
     )} </ul>

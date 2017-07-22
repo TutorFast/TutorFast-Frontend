@@ -9,7 +9,7 @@ module.exports = {
   ],
   output: {
     path: path.resolve(__dirname, 'build'),
-    filename: 'bundle.js',
+    filename: '[name]-bundle.js',
   },
   devServer: {
     contentBase: path.join(__dirname, 'html'),
@@ -25,15 +25,18 @@ module.exports = {
   },
   plugins: [
     new webpack.HotModuleReplacementPlugin(),
+    new webpack.optimize.CommonsChunkPlugin({
+      name: 'node-static',
+      filename: 'node-static.js',
+      minChunks(module, count) {
+        let context = module.context;
+        return context && context.indexOf('node_modules') >= 0;
+      },
+    }),
+    new webpack.optimize.CommonsChunkPlugin({ name: 'manifest' }),
   ],
   module: {
     rules: [
-      // {
-      //   enforce: 'pre',
-      //   test: /\.js$/,
-      //   exclude: /node_modules/,
-      //   loader: 'eslint-loader',
-      // },
       {
         test: /\.css$/,
         loaders: ['style-loader', 'css-loader'],
