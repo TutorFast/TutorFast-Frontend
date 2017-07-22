@@ -48,6 +48,7 @@
     "redux": "^3.7.0",
     "sass-loader": "^6.0.6",
     "semantic-ui-react": "^0.70.0",
+    "stripe": "^4.23.1",
     "style-loader": "^0.18.2",
     "webpack": "^3.0.0",
     "webpack-dev-server": "^2.5.0",
