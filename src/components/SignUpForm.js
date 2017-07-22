@@ -1,6 +1,10 @@
 import React, { Component } from 'react';
-import { Form, Message, Checkbox } from 'semantic-ui-react';
+import { Form, Message, Checkbox, Input, Label, Button} from 'semantic-ui-react';
 import { validate } from 'email-validator';
+
+import { validateZipCode, validateWage } from '~/util';
+
+import EditableList from './EditableList';
 
 class SignUpForm extends Component {
 
@@ -23,7 +27,11 @@ class SignUpForm extends Component {
         pristine: true,
         value: ''
       },
-      subjects: [],
+      zipCode: {
+        pristine: true,
+        value: '',
+      },
+      subjects: Array,
       isTutor: false,
       success: props.success,
       errors: [...props.errors],
@@ -62,7 +70,7 @@ class SignUpForm extends Component {
       username: boolean,
       password: boolean,
       wage: boolean,
-      subjects: boolean,
+      zipCode: boolean,
     }
   }
 
@@ -75,9 +83,8 @@ class SignUpForm extends Component {
     this.setState({isTutor: !this.state.isTutor});
   }
 
-  handleSubjectsChange = (e, {name, value}) => {
-    var list = value.split(',');
-    this.setState({subjects: [list]});
+  handleSubjects = subjects => {
+    this.setState({ subjects });
   }
 
   handleSubmit = () => {
@@ -99,13 +106,14 @@ class SignUpForm extends Component {
     // if there are errors dont submit
     if (errors.length) return;
 
-    const { username, password, email, isTutor, wage, subjects } = this.state;
+    const { username, password, email, isTutor, wage, zipCode, subjects } = this.state;
     this.props.onSubmit({
       username: username.value,
       password: password.value,
       email: email.value,
       isTutor: isTutor,
       wage: wage.value,
+      zipCode: zipCode.value,
       subjects: subjects,
     });  
 }
@@ -114,8 +122,6 @@ class SignUpForm extends Component {
     username: this.state.username.value,
     email: validate(this.state.email.value),
     password: this.state.password.value,
-    wage: this.state.wage.value,
-    subjects: this.state.subjects,
   })
 
   computeFieldErrors = () => ({
@@ -131,13 +137,6 @@ class SignUpForm extends Component {
       !this.state.password.pristine &&
       !this.computeFieldValidity().password ||
       this.props.fieldErrors.password,
-    wage:
-      !this.state.wage.pristine &&
-      !this.computeFieldValidity().wage ||
-      this.props.fieldErrors.wage,
-    subjects:
-      !this.computeFieldValidity().subjects ||
-      this.props.fieldErrors.subjects,
   })
 
   render() {
@@ -174,38 +173,42 @@ class SignUpForm extends Component {
           error={fieldErrors.password}
           onChange={this.handleChange} />
 
-        <Checkbox
+        <Form.Checkbox
+          name='isTutor'
           label='I am a Tutor!'
           onChange={this.handleCheckboxChange}
-          value={this.state.isTutor}
+          defaultChecked={this.state.isTutor}
         />
 
         <br/>
   
-        {this.state.isTutor
-          ? <Form.Input
+        {this.state.isTutor ? <Form.Field>
+          <label>Hourly Wage</label>
+          <Input
             name='wage'
+            labelPosition='right'
             label='Wage'
             placeholder='Wage in $/hr'
             error={fieldErrors.wage}
-            onChange={this.handleChange}
-          />
-          : null
-        }
-                
-        {this.state.isTutor
-          ? 
-            <Form.Input
-            name='subjects'
-            label='Subjects separated by commas'
-            placeholder='Ex. "Algebra, US History, Biology, etc"'
-            error={fieldErrors.subjects}
-            onChange={this.handleSubjectsChange}
-          /> 
-          : null
-        }
+            onChange={this.handleChange}>
+          </Input>
+        </Form.Field> : null }
 
-        <br/>
+        {this.state.isTutor ? <Form.Field>
+              <label>ZIP Code</label>
+              <Input
+                name='zipCode'
+                autoComplete='off'
+                error={fieldErrors.zipCode}
+                onChange={this.handleChange} />
+            </Form.Field> : null}
+
+        {this.state.isTutor ? <Form.Field>
+              <label>Teachable Subjects</label>
+              <EditableList
+                list={this.state.subjects}
+                onChange={this.handleSubjects} />
+            </Form.Field> : null}
         
         <Form.Button content='Sign Up!' />
 
