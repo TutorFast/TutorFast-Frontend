@@ -70,7 +70,7 @@ class PaymentForm extends Component {
               <CardElement style={{ base: { fontSize: '16px' } }} onChange={this.handleChange} />
             </div>
             <Form.Button positive disabled={!this.state.complete} onClick={this.handleSubmit} content='Submit' />
-            <Form.Button negative content='Unset' onClick={console.log} />
+            <Form.Button negative content='Unset' onClick={this.handleUnset} />
           </Form.Group>
         </Form>
         <Message error hidden={!this.state.error} style={{ margin: '5px 5px 0px -8px' }}>

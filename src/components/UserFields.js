@@ -36,6 +36,20 @@ export default
           <List.Description>Account type.</List.Description>
         </List.Content>
       </List.Item>
+      <List.Item>
+        <List.Icon name='credit card'
+          color={user.card ? 'green' : 'red'}
+          size='large'
+          verticalAlign='middle' />
+        <List.Content>
+          <List.Header>Payment</List.Header>
+          <List.Description>{
+            user.card
+              ? 'You have a payment method set.'
+              : 'You have no payment method set.'
+          }</List.Description>
+        </List.Content>
+      </List.Item>
 
       {user.isTutor ? <List.Item>
         <List.Icon name='location arrow' size='large' verticalAlign='middle' />
