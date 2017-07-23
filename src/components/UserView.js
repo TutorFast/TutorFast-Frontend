@@ -66,13 +66,8 @@ class UserView extends Component {
 
           <Route
             path='/user/delete'
-            render={() =>
-              <DeleteUserModal
-                token={this.props.user.token}
-                onCancel={this.handleCancel}
-                onDelete={this.handleDelete}/>
-            } />
-
+            component={DeleteUserModal} />
+        
           <Route
             path='/user/edit'
             render={
