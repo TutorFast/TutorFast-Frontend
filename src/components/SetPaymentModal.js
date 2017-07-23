@@ -18,6 +18,10 @@ class SetPaymentModal extends Component {
     this.props.dispatch(push('/user'));
   }
 
+  handleUnset = () => {
+    this.props.dispatch(push('/user'));
+  }
+
   handleClose = () => {
     this.props.dispatch(push('/user'));
   }
@@ -35,7 +39,7 @@ class SetPaymentModal extends Component {
 
         <Modal.Content>
           <Segment color='green' style={{ padding: '10px 10px 10px 18px' }}>
-            <PaymentForm onSubmit={this.handleSubmit} />
+            <PaymentForm onSubmit={this.handleSubmit} onUnset={this.handleUnset} />
           </ Segment>
         </Modal.Content>
       </Modal>
