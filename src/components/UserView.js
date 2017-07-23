@@ -27,7 +27,6 @@ class UserView extends Component {
   props: {
     user: {
       token: string,
-      card: string,
     },
     onEdit: () => {},
     onDeleteModal: () => {},
@@ -67,7 +66,7 @@ class UserView extends Component {
           <Route
             path='/user/delete'
             component={DeleteUserModal} />
-        
+
           <Route
             path='/user/edit'
             render={

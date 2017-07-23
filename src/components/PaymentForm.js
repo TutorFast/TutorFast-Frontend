@@ -25,6 +25,7 @@ class PaymentForm extends Component {
     },
     user: {
       token: string,
+      card: string,
     },
     onSubmit?: () => null,
     onUnset?: () => null,
@@ -38,7 +39,7 @@ class PaymentForm extends Component {
       this.props.stripe.createToken()
         .then(res => res.error ? Promise.reject(res.error) : res.token)
         .then(token => setCard({ cardToken: token.id, token: this.props.user.token }))
-        .then(pipe(token => this.props.dispatch(updateUser({ card: token }))))
+        .then(pipe(({ user }) => this.props.dispatch(updateUser(user))))
         .then(this.props.onSubmit)
         .catch(error => this.setState({ error }))
         .then(() => this.setState({ loading: false }))
@@ -49,6 +50,8 @@ class PaymentForm extends Component {
   }
 
   handleUnset = () => {
+    this.setState({ loading: true });
+
     unsetCard({ token: this.props.user.token })
       .then(() => this.props.dispatch(updateUser({ card: '' })))
       .then(this.props.onUnset)
@@ -64,13 +67,20 @@ class PaymentForm extends Component {
   render() {
     return (
       <div>
-        <Form loading={this.state.loading} onSubmit={this.handleSubmit} style={{ margin: 0 }}>
+        <Form loading={this.state.loading} style={{ margin: 0 }}>
           <Form.Group style={{ display: 'flex', margin: 0 }}>
             <div style={{ flex: 1, margin: 'auto' }}>
               <CardElement style={{ base: { fontSize: '16px' } }} onChange={this.handleChange} />
             </div>
-            <Form.Button positive disabled={!this.state.complete} onClick={this.handleSubmit} content='Submit' />
-            <Form.Button negative content='Unset' onClick={this.handleUnset} />
+            <Form.Button
+              positive
+              disabled={!this.state.complete}
+              onClick={this.handleSubmit}
+              content={this.props.user.card ? 'Reset' : 'Set'} />
+            {this.props.user.card
+              ? <Form.Button negative content='Unset' onClick={this.handleUnset} />
+              : null
+            }
           </Form.Group>
         </Form>
         <Message error hidden={!this.state.error} style={{ margin: '5px 5px 0px -8px' }}>
