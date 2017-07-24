@@ -51,7 +51,7 @@ export default
         </List.Content>
       </List.Item>
 
-      {user.isTutor ? <List.Item>
+      {user.isTutor && user.zipCode ? <List.Item>
         <List.Icon name='location arrow' size='large' verticalAlign='middle' />
         <List.Content>
           <List.Header>{user.zipCode}</List.Header>
@@ -65,7 +65,7 @@ export default
           <List.Description>Your hourly wage.</List.Description>
         </List.Content>
       </List.Item> : null}
-      {user.isTutor ? <List.Item>
+      {user.isTutor && user.subjects.length ? <List.Item>
         <List.Icon name='idea' size='large' verticalAlign='middle' />
         <List.Content>
           <List.Header>

@@ -13,6 +13,7 @@ import UserFields from './UserFields';
 import EditUserModal from './EditUserModal';
 import DeleteUserModal from './DeleteUserModal';
 import SetPaymentModal from './SetPaymentModal';
+import ConnectStripeButton from './ConnectStripeButton';
 
 import { updateUser as updateUserFetch, deleteUser } from '~/fetches';
 import { updateUser as updateUserAction, signOut } from '~/actions';
@@ -83,6 +84,8 @@ class UserView extends Component {
             path='/user/payment'
             component={SetPaymentModal} />
 
+          <Divider />
+          <ConnectStripeButton />
 
         </Segment>
       </Layout>
