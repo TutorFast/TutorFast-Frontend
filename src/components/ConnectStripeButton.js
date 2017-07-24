@@ -6,7 +6,7 @@ import { STRIPE_CLIENT_ID, STRIPE_OAUTH_URL } from '~/config';
 
 
 const ConnectStripeButton = ({ token } : { token: string }) =>
-  <Button as='a' content='Connect to Stripe'
+  <Button as='a' content='Connect' positive
     href={
       `${
         STRIPE_OAUTH_URL

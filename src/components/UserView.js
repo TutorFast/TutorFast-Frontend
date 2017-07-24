@@ -13,7 +13,6 @@ import UserFields from './UserFields';
 import EditUserModal from './EditUserModal';
 import DeleteUserModal from './DeleteUserModal';
 import SetPaymentModal from './SetPaymentModal';
-import ConnectStripeButton from './ConnectStripeButton';
 
 import { updateUser as updateUserFetch, deleteUser } from '~/fetches';
 import { updateUser as updateUserAction, signOut } from '~/actions';
@@ -31,6 +30,7 @@ class UserView extends Component {
     },
     onEdit: () => {},
     onDeleteModal: () => {},
+    onSetPayment: () => {},
     onCancel: () => {},
     onSave: () => {},
   }
@@ -56,12 +56,11 @@ class UserView extends Component {
     return (
       <Layout>
         <Segment clearing>
-          <UserFields user={this.props.user} />
+          <UserFields user={this.props.user} onSetPayment={this.handleSetPayment} />
 
           <Divider />
 
           <Button primary onClick={this.handleEdit}>Edit</Button>
-          <Button positive onClick={this.handleSetPayment}>Payment</Button>
           <Button negative onClick={this.handleDeleteModal} floated='right'>Delete</Button>
 
           <Route
@@ -83,9 +82,6 @@ class UserView extends Component {
           <Route
             path='/user/payment'
             component={SetPaymentModal} />
-
-          <Divider />
-          <ConnectStripeButton />
 
         </Segment>
       </Layout>

@@ -1,10 +1,13 @@
 import React from 'react';
-import { Header, Icon, List } from 'semantic-ui-react';
+import { Header, Icon, List, Button } from 'semantic-ui-react';
+
+import ConnectStripeButton from './ConnectStripeButton';
+
 
 export default
 (
-  { user } :
-  { user: {} }
+  { user, onSetPayment } :
+  { user: {}, onSetPayment: Function }
 ) =>
   <div>
     <Header as='h2' icon textAlign='center'>
@@ -37,6 +40,13 @@ export default
         </List.Content>
       </List.Item>
       <List.Item>
+        <List.Content floated='right'>
+          <Button positive={!user.card} onClick={onSetPayment}>{
+            user.card
+              ? 'Change'
+              : 'Set'
+          }</Button>
+        </List.Content>
         <List.Icon name='credit card'
           color={user.card ? 'green' : 'red'}
           size='large'
@@ -52,6 +62,9 @@ export default
       </List.Item>
 
       {user.isTutor ? <List.Item>
+        {!user.account ? <List.Content floated='right'>
+          <ConnectStripeButton />
+        </List.Content> : null}
         <List.Icon name='stripe'
           color={user.account ? 'green' : 'red'}
           size='large'
