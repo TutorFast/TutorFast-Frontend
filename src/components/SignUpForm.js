@@ -8,37 +8,8 @@ import EditableList from './EditableList';
 
 class SignUpForm extends Component {
 
-  constructor(props) {
-    super(props);
-    this.state = {
-      email: {
-        pristine: true,
-        value: '',
-      },
-      username: {
-        pristine: true,
-        value: '',
-      },
-      password: {
-        pristine: true,
-        value: '',
-      },
-      wage: {
-        pristine: true,
-        value: ''
-      },
-      zipCode: {
-        pristine: true,
-        value: '',
-      },
-      subjects: Array,
-      isTutor: false,
-      success: props.success,
-      errors: [...props.errors],
-    };
-  }
-
   static defaultProps = {
+    subjects: [],
     onSubmit: () => {},
     success: '',
     loading: false,
@@ -53,6 +24,33 @@ class SignUpForm extends Component {
     },
   }
 
+  state = {
+    email: {
+      pristine: true,
+      value: '',
+    },
+    username: {
+      pristine: true,
+      value: '',
+    },
+    password: {
+      pristine: true,
+      value: '',
+    },
+    wage: {
+      pristine: true,
+      value: ''
+    },
+    zipCode: {
+      pristine: true,
+      value: '',
+    },
+    subjects: [...this.props.subjects],
+    isTutor: false,
+    success: this.props.success,
+    errors: [...this.props.errors],
+  }
+
   componentWillReceiveProps({ success, errors }) {
     this.setState({
       success,
@@ -60,8 +58,8 @@ class SignUpForm extends Component {
     });
   }
 
-  
   props: {
+    subjects: Array<string>,
     onSubmit: Function,
     success: string,
     errors: Array<string>,
