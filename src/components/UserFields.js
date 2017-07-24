@@ -42,15 +42,29 @@ export default
           size='large'
           verticalAlign='middle' />
         <List.Content>
-          <List.Header>Payment</List.Header>
+          <List.Header>Payment Method</List.Header>
           <List.Description>{
             user.card
-              ? 'You have a payment method set.'
-              : 'You have no payment method set.'
+              ? 'You have a way to pay tutors.'
+              : 'You have no way to pay tutors set.'
           }</List.Description>
         </List.Content>
       </List.Item>
 
+      {user.isTutor ? <List.Item>
+        <List.Icon name='stripe'
+          color={user.account ? 'green' : 'red'}
+          size='large'
+          verticalAlign='middle' />
+        <List.Content>
+          <List.Header>Bank Account</List.Header>
+          <List.Description>{
+            user.account
+              ? 'You have an account set up to recieve funds from learners.'
+              : 'You have no way to get payed set up :/'
+          }</List.Description>
+        </List.Content>
+      </List.Item> : null}
       {user.isTutor && user.zipCode ? <List.Item>
         <List.Icon name='location arrow' size='large' verticalAlign='middle' />
         <List.Content>
