@@ -25,7 +25,7 @@ class PaymentForm extends Component {
     },
     user: {
       token: string,
-      card: string,
+      card?: string,
     },
     onSubmit?: () => null,
     onUnset?: () => null,
