@@ -1,9 +1,15 @@
 import React, { Component } from 'react';
-import { Form, Message } from 'semantic-ui-react';
+import { Form, Message, Checkbox, Input, Label, Button} from 'semantic-ui-react';
 import { validate } from 'email-validator';
 
+import { validateZipCode, validateWage } from '~/util';
+
+import EditableList from './EditableList';
+
 class SignUpForm extends Component {
+
   static defaultProps = {
+    subjects: [],
     onSubmit: () => {},
     success: '',
     loading: false,
@@ -12,6 +18,9 @@ class SignUpForm extends Component {
       email: false,
       username: false,
       password: false,
+      wage: false,
+      zipCode: false,
+      subjects: false,
     },
   }
 
@@ -28,6 +37,16 @@ class SignUpForm extends Component {
       pristine: true,
       value: '',
     },
+    wage: {
+      pristine: true,
+      value: ''
+    },
+    zipCode: {
+      pristine: true,
+      value: '',
+    },
+    subjects: [...this.props.subjects],
+    isTutor: false,
     success: this.props.success,
     errors: [...this.props.errors],
   }
@@ -40,6 +59,7 @@ class SignUpForm extends Component {
   }
 
   props: {
+    subjects: Array<string>,
     onSubmit: Function,
     success: string,
     errors: Array<string>,
@@ -48,13 +68,26 @@ class SignUpForm extends Component {
       email: boolean,
       username: boolean,
       password: boolean,
+      wage: boolean,
+      zipCode: boolean,
     }
   }
 
-  handleChange = (e, { name, value }) =>
+  handleChange = (e, { name, value }) => {
     this.setState({ [name]: { value, pristine: false } })
+    //console.log(`${name} = ${value}`);
+  }
+
+  handleCheckboxChange = () => {
+    this.setState({isTutor: !this.state.isTutor});
+  }
+
+  handleSubjects = subjects => {
+    this.setState({ subjects });
+  }
 
   handleSubmit = () => {
+
     const errors = Object.entries(this.computeFieldValidity())
       .filter(([_, validity]) => !validity)
       .map(([field]) => field)
@@ -72,13 +105,17 @@ class SignUpForm extends Component {
     // if there are errors dont submit
     if (errors.length) return;
 
-    const { username, password, email } = this.state;
+    const { username, password, email, isTutor, wage, zipCode, subjects } = this.state;
     this.props.onSubmit({
       username: username.value,
       password: password.value,
       email: email.value,
-    });
-  }
+      isTutor: isTutor,
+      wage: wage.value,
+      zipCode: zipCode.value,
+      subjects: subjects,
+    });  
+}
 
   computeFieldValidity = () => ({
     username: this.state.username.value,
@@ -104,6 +141,8 @@ class SignUpForm extends Component {
   render() {
     const { errors, success } = this.state;
     const fieldErrors = this.computeFieldErrors();
+
+    var subjects = [];
 
     return (
       <Form
@@ -133,6 +172,42 @@ class SignUpForm extends Component {
           error={fieldErrors.password}
           onChange={this.handleChange} />
 
+        <Form.Checkbox
+          name='isTutor'
+          label='I am a Tutor!'
+          onChange={this.handleCheckboxChange}
+          defaultChecked={this.state.isTutor}
+        />
+
+        <br/>
+  
+        {this.state.isTutor ? <Form.Field>
+          <label>Hourly Wage</label>
+          <Input
+            name='wage'
+            labelPosition='right'
+            label='Wage'
+            placeholder='Wage in $/hr'
+            error={fieldErrors.wage}
+            onChange={this.handleChange}>
+          </Input>
+        </Form.Field> : null }
+
+        {this.state.isTutor ? <Form.Field>
+              <label>ZIP Code</label>
+              <Input
+                name='zipCode'
+                error={fieldErrors.zipCode}
+                onChange={this.handleChange} />
+            </Form.Field> : null}
+
+        {this.state.isTutor ? <Form.Field>
+              <label>Teachable Subjects</label>
+              <EditableList
+                list={this.state.subjects}
+                onChange={this.handleSubjects} />
+            </Form.Field> : null}
+        
         <Form.Button content='Sign Up!' />
 
         <Message
