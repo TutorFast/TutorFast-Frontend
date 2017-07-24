@@ -2,7 +2,10 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import App from './containers/App';
 import { AppContainer } from 'react-hot-loader';
-import Context, { createContextConfig } from './containers/Context';
+
+import Context, { createContextConfig } from '~/containers/Context';
+import { getOwnUser } from '~/fetches';
+import { updateUser, signOut } from '~/actions';
 
 let contextConfig;
 
@@ -15,6 +18,11 @@ try {
 } catch (err) {
   contextConfig = createContextConfig();
 }
+
+getOwnUser(contextConfig.store.getState().user.token)
+  .then(user => contextConfig.store.dispatch(updateUser(user)))
+  .catch(() => contextConfig.store.dispatch(signOut()))
+;
 
 const render = Component =>
   ReactDOM.render(
