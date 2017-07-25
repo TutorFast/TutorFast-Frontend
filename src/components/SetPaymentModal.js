@@ -9,7 +9,7 @@ import PaymentForm from './PaymentForm';
 class SetPaymentModal extends Component {
   props: {
     user: {
-      card: string,
+      card?: string,
     },
     dispatch: Function,
   }
