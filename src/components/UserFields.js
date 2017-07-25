@@ -62,9 +62,9 @@ export default
       </List.Item>
 
       {user.isTutor ? <List.Item>
-        {!user.account ? <List.Content floated='right'>
+        <List.Content floated='right'>
           <ConnectStripeButton />
-        </List.Content> : null}
+        </List.Content>
         <List.Icon name='stripe'
           color={user.account ? 'green' : 'red'}
           size='large'
