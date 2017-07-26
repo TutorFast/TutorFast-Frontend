@@ -15,28 +15,34 @@ class DeleteUserModal extends Component {
 
   props: {
     token: string,
-    onDelete: (token: string) => (password: string) => Promise,
-    onCancel: () => {},
+    path: string,
+    dispatch: Function,
   }
 
-  handleCancel = this.props.onCancel
+  handleClose = () => {
+    this.props.dispatch(push(
+      this.props.path.split('/').slice(0, -1).join('/')
+    ));
+  }
 
   handleDelete = () => {
     this.setState({ loading: true });
 
-    this.props
-      .onDelete({
-        password: this.state.password,
-        token: this.props.token,
-      })
-      .catch(error => this.setState({ error, loading: false }));
+    deleteUser({
+      password: this.state.password,
+      token: this.props.token,
+    })
+      .then(() => this.props.dispatch(signOut()))
+      .then(() => this.props.dispatch(push('/')))
+      .catch(error => this.setState({ error, loading: false }))
+    ;
   }
 
   handleChange = (_, { value }) => this.setState({ password: value })
 
   render() {
     return (
-      <Modal open basic size='small' >
+      <Modal open basic size='small' onClose={this.handleClose} >
         <Header icon='user delete' content='Delete Account?' />
 
         <Modal.Content>
@@ -54,7 +60,7 @@ class DeleteUserModal extends Component {
             inverted
             icon='arrow circle outline left'
             content='Reconsider'
-            onClick={this.handleCancel} />
+            onClick={this.handleClose} />
 
           <Button
             color='red'
@@ -75,4 +81,6 @@ class DeleteUserModal extends Component {
   }
 }
 
-export default DeleteUserModal;
+export default connect(
+  ({ router, user }) => ({ path: router.location.pathname, token: user.token }),
+)(DeleteUserModal);

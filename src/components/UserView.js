@@ -27,10 +27,10 @@ class UserView extends Component {
   props: {
     user: {
       token: string,
-      card: string,
     },
     onEdit: () => {},
     onDeleteModal: () => {},
+    onSetPayment: () => {},
     onCancel: () => {},
     onSave: () => {},
   }
@@ -56,22 +56,16 @@ class UserView extends Component {
     return (
       <Layout>
         <Segment clearing>
-          <UserFields user={this.props.user} />
+          <UserFields user={this.props.user} onSetPayment={this.handleSetPayment} />
 
           <Divider />
 
           <Button primary onClick={this.handleEdit}>Edit</Button>
-          <Button positive onClick={this.handleSetPayment}>Payment</Button>
           <Button negative onClick={this.handleDeleteModal} floated='right'>Delete</Button>
 
           <Route
             path='/user/delete'
-            render={() =>
-              <DeleteUserModal
-                token={this.props.user.token}
-                onCancel={this.handleCancel}
-                onDelete={this.handleDelete}/>
-            } />
+            component={DeleteUserModal} />
 
           <Route
             path='/user/edit'
@@ -88,7 +82,6 @@ class UserView extends Component {
           <Route
             path='/user/payment'
             component={SetPaymentModal} />
-
 
         </Segment>
       </Layout>
