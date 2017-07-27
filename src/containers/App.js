@@ -9,6 +9,7 @@ import SignIn from '~/components/SignIn';
 import UserView from '~/components/UserView';
 import NoMatch from '~/components/NoMatch';
 import TutorSearchView from '~/components/TutorSearchView';
+import TutorAppointmentList from '~/components/TutorAppointmentList';
 
 import PrivateRoute from './PrivateRoute';
 
@@ -29,7 +30,7 @@ export default () =>
           transform: `translateX(${styles.translateX}%)`,
         })} >
         <Switch key={location.key} location={location}>
-          <Route exact path='/' component={HelloWorld} />
+          <Route exact path='/' component={TutorAppointmentList} />
           <Route path='/hello' component={HelloWorld} />
           <Route path='/sign-up' component={SignUp} />
           <Route path='/sign-in' component={SignIn} />
