@@ -123,7 +123,7 @@ class SignInForm extends Component {
           <Message
             key={idx}
             error
-            content={error || 'Error'} />
+            content={error && error.toString() || 'Error'} />
         )}
 
       </Form>
