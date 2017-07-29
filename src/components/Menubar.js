@@ -33,12 +33,6 @@ const Menubar =
       active={path === '/search'}
       onClick={onItemClick} />
 
-    <Menu.Item
-      content='Hello'
-      name='/hello'
-      active={path === '/hello'}
-      onClick={onItemClick} />
-
     <Menu.Menu position='right'>
       {
         !user.token
