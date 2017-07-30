@@ -9,6 +9,7 @@ import SignIn from '~/components/SignIn';
 import UserView from '~/components/UserView';
 import NoMatch from '~/components/NoMatch';
 import TutorSearchView from '~/components/TutorSearchView';
+import CreateAppointmentView from '~/components/CreateAppointmentView';
 
 import PrivateRoute from './PrivateRoute';
 
@@ -33,6 +34,8 @@ export default () =>
           <Route path='/hello' component={HelloWorld} />
           <Route path='/sign-up' component={SignUp} />
           <Route path='/sign-in' component={SignIn} />
+          <Route path='/create-appointment' component={CreateAppointmentView} />
+          <Route path='/create-appointment/:tutor' component={CreateAppointmentView} />
           <Route path='/search' render={
             () => <TutorSearchView maxSliderWage={50} minSliderWage={0} />
           } />
