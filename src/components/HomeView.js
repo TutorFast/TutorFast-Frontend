@@ -29,7 +29,7 @@ const HomeView = ({ dispatch } : { dispatch: Function }) =>
     </Segment>
     <Grid stackable>
       <Grid.Row>
-        <Grid.Column width={6}>
+        <Grid.Column width={7}>
           <Segment padded>
             <Header as='h1'>Find a Tutor right now!</Header>
             <p style={{ fontSize: '20px' }}>
@@ -40,14 +40,22 @@ const HomeView = ({ dispatch } : { dispatch: Function }) =>
               content='Search Tutors!'
               icon='chevron right'
               labelPosition='right'
+              size='huge'
               onClick={() => dispatch(push('/search'))} />
           </Segment>
 
           <MailgunBlerb />
         </Grid.Column>
-        <Grid.Column width={10}>
+        <Grid.Column width={9}>
           <Segment padded>
-            <Header as='h1'>The <Label color='black' size='massive' >Tutor<em>Fast</em></Label> Purpose</Header>
+            <Header as='h1'>
+              The
+              <Label horizontal color='black' size='massive'>
+                Tutor<em>Fast</em>
+              </Label>
+              Objective
+            </Header>
+
             <p style={{ fontSize: '20px', textAlign: 'left' }}>
               For students of all ages, finding a tutor can be a stressful and
               time consuming activity.  You would normally have to contact different
