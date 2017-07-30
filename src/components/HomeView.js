@@ -17,7 +17,7 @@ const HomeView = ({ dispatch } : { dispatch: Function }) =>
         Working to close the gap between Tutors and Learners everywhere!
       </p>
 
-      <Button.Group inverted size='large' style={{ marginBottom: '60px' }}>
+      <Button.Group inverted size='huge' style={{ marginBottom: '60px' }}>
         <Button primary onClick={() => dispatch(push('/sign-in'))}>
           Sign In
         </Button>
@@ -43,8 +43,6 @@ const HomeView = ({ dispatch } : { dispatch: Function }) =>
               size='huge'
               onClick={() => dispatch(push('/search'))} />
           </Segment>
-
-          <MailgunBlerb />
         </Grid.Column>
         <Grid.Column width={9}>
           <Segment padded>
@@ -66,8 +64,14 @@ const HomeView = ({ dispatch } : { dispatch: Function }) =>
               students and tutors.
             </p>
           </Segment>
-
+        </Grid.Column>
+      </Grid.Row>
+      <Grid.Row>
+        <Grid.Column width={10}>
           <StripeBlerb />
+        </Grid.Column>
+        <Grid.Column width={6}>
+          <MailgunBlerb />
         </Grid.Column>
       </Grid.Row>
     </Grid>
