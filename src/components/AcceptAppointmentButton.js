@@ -14,21 +14,22 @@ class AcceptAppointmentButton extends Component {
     onError: console.log,
   }
 
-  props: {
-    onAccept?: Appointment => {},
-    onError?: Error => {},
-    appointment: string,
-    user: User,
-  }
-
   state = {
     loading: false,
   }
 
+  props: {
+    onAccept?: Appointment => {},
+    onError?: Error => {},
+    appointmentId: string,
+    user: User,
+  }
+
+
   handleClick = () => {
     this.setState({ loading: true });
 
-    acceptAppointment(this.props.user, this.props.appointment)
+    acceptAppointment(this.props.user, this.props.appointmentId)
       .then(this.props.onAccept)
       .catch(this.onError)
       .then(this.setState({ loading: false }))
