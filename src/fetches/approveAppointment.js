@@ -3,7 +3,7 @@ import { screenResponse } from '~/util';
 
 
 export default (user, appointmentId) =>
-  fetch(`${API_BASE}/appointment/accept/${appointmentId}`, {
+  fetch(`${API_BASE}/appointment/approve/${appointmentId}`, {
     method: 'POST',
     headers: {
       authorization: user.token,

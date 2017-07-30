@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Button } from 'semantic-ui-react';
 
-import { acceptAppointment } from '~/fetches';
+import { approveAppointment } from '~/fetches';
 
 import type User from '~/types/User';
 import type Appointment from '~/types/Appointment';
@@ -29,7 +29,7 @@ class AcceptAppointmentButton extends Component {
   handleClick = () => {
     this.setState({ loading: true });
 
-    acceptAppointment(this.props.user, this.props.appointmentId)
+    approveAppointment(this.props.user, this.props.appointmentId)
       .then(this.props.onAccept)
       .catch(this.onError)
       .then(this.setState({ loading: false }))
@@ -38,8 +38,8 @@ class AcceptAppointmentButton extends Component {
 
   render() {
     return (
-      <Button success
-        content='Accept Appointment'
+      <Button positive
+        content='Approve Appointment'
         onClick={this.handleClick}
         loading={this.state.loading} />
     );

@@ -4,7 +4,7 @@ import { List, Segment, Label, Icon } from 'semantic-ui-react';
 
 import type User from '~/types/User';
 
-import { AcceptAppointmentButton } from './AcceptAppointmentButton';
+import ApproveAppointmentButton from './ApproveAppointmentButton';
 import { getAppointments } from '~/fetches';
 
 
@@ -65,7 +65,7 @@ class TutorAppointmentList extends Component {
     <List.Item key={idx}>
       <List.Content floated='right'>
         {state === 'proposed'
-          ? <AcceptAppointmentButton appointmentId={_id}/>
+          ? <ApproveAppointmentButton appointmentId={_id}/>
           : null}
       </List.Content>
       <List.Content style={{ marginBottom: '4px' }}>
