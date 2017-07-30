@@ -12,7 +12,10 @@ module.exports = {
     filename: '[name]-bundle.js',
   },
   devServer: {
-    contentBase: path.join(__dirname, 'html'),
+    contentBase: [
+      path.join(__dirname, 'html'),
+      path.join(__dirname, 'assets'),
+    ],
     port: 9000,
     hot: true,
     publicPath: '/',

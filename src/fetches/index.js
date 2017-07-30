@@ -7,3 +7,6 @@ export { default as getTutors } from './getTutors';
 export { default as setCard } from './setCard';
 export { default as unsetCard } from './unsetCard';
 export { default as deauthStripe } from './deauthStripe';
+export { default as getAppointments } from './getAppointments';
+export { default as approveAppointment } from './approveAppointment';
+export { default as rejectAppointment } from './rejectAppointment';

@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Form, Message, Checkbox, Input, Label, Button} from 'semantic-ui-react';
+import { Form, Message, Checkbox, Input, Label, Button } from 'semantic-ui-react';
 import { validate } from 'email-validator';
 
 import { validateZipCode, validateWage } from '~/util';
@@ -7,7 +7,6 @@ import { validateZipCode, validateWage } from '~/util';
 import EditableList from './EditableList';
 
 class SignUpForm extends Component {
-
   static defaultProps = {
     subjects: [],
     onSubmit: () => {},
@@ -39,7 +38,7 @@ class SignUpForm extends Component {
     },
     wage: {
       pristine: true,
-      value: ''
+      value: '',
     },
     zipCode: {
       pristine: true,
@@ -74,12 +73,12 @@ class SignUpForm extends Component {
   }
 
   handleChange = (e, { name, value }) => {
-    this.setState({ [name]: { value, pristine: false } })
-    //console.log(`${name} = ${value}`);
+    this.setState({ [name]: { value, pristine: false } });
+    // console.log(`${name} = ${value}`);
   }
 
   handleCheckboxChange = () => {
-    this.setState({isTutor: !this.state.isTutor});
+    this.setState({ isTutor: !this.state.isTutor });
   }
 
   handleSubjects = subjects => {
@@ -87,7 +86,6 @@ class SignUpForm extends Component {
   }
 
   handleSubmit = () => {
-
     const errors = Object.entries(this.computeFieldValidity())
       .filter(([_, validity]) => !validity)
       .map(([field]) => field)
@@ -110,12 +108,12 @@ class SignUpForm extends Component {
       username: username.value,
       password: password.value,
       email: email.value,
-      isTutor: isTutor,
+      isTutor,
       wage: wage.value,
       zipCode: zipCode.value,
-      subjects: subjects,
-    });  
-}
+      subjects,
+    });
+  }
 
   computeFieldValidity = () => ({
     username: this.state.username.value,
@@ -142,7 +140,7 @@ class SignUpForm extends Component {
     const { errors, success } = this.state;
     const fieldErrors = this.computeFieldErrors();
 
-    var subjects = [];
+    let subjects = [];
 
     return (
       <Form
@@ -176,11 +174,10 @@ class SignUpForm extends Component {
           name='isTutor'
           label='I am a Tutor!'
           onChange={this.handleCheckboxChange}
-          defaultChecked={this.state.isTutor}
-        />
+          defaultChecked={this.state.isTutor}/>
 
         <br/>
-  
+
         {this.state.isTutor ? <Form.Field>
           <label>Hourly Wage</label>
           <Input
@@ -189,25 +186,24 @@ class SignUpForm extends Component {
             label='Wage'
             placeholder='Wage in $/hr'
             error={fieldErrors.wage}
-            onChange={this.handleChange}>
-          </Input>
+            onChange={this.handleChange} />
         </Form.Field> : null }
 
         {this.state.isTutor ? <Form.Field>
-              <label>ZIP Code</label>
-              <Input
-                name='zipCode'
-                error={fieldErrors.zipCode}
-                onChange={this.handleChange} />
-            </Form.Field> : null}
+          <label>ZIP Code</label>
+          <Input
+            name='zipCode'
+            error={fieldErrors.zipCode}
+            onChange={this.handleChange} />
+        </Form.Field> : null}
 
         {this.state.isTutor ? <Form.Field>
-              <label>Teachable Subjects</label>
-              <EditableList
-                list={this.state.subjects}
-                onChange={this.handleSubjects} />
-            </Form.Field> : null}
-        
+          <label>Teachable Subjects</label>
+          <EditableList
+            list={this.state.subjects}
+            onChange={this.handleSubjects} />
+        </Form.Field> : null}
+
         <Form.Button content='Sign Up!' />
 
         <Message
@@ -218,7 +214,7 @@ class SignUpForm extends Component {
           <Message
             key={idx}
             error
-            content={error || 'Error'} />
+            content={error && error.toString() || 'Error'} />
         )}
 
       </Form>
