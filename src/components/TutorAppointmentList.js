@@ -3,6 +3,8 @@ import { connect } from 'react-redux';
 import { List, Segment, Label, Icon } from 'semantic-ui-react';
 
 import type User from '~/types/User';
+
+import ApproveAppointmentButton from './ApproveAppointmentButton';
 import { getAppointments } from '~/fetches';
 
 
@@ -59,9 +61,23 @@ class TutorAppointmentList extends Component {
           ? 'cancel'
           : 'red'
 
-  renderItem = ({ startDate, endDate, location, state, cost, learner, tutor, subject }, idx) =>
+  handleApproved = newAppt =>
+    this.setState({
+      list:
+        this.state.list.map(appt => newAppt._id === appt._id
+          ? newAppt
+          : appt),
+    })
+
+  renderItem = ({ startDate, endDate, location, state, cost, learner, tutor, subject, _id }, idx) =>
     <List.Item key={idx}>
-      <List.Content style={{ textAlign: 'center', marginBottom: '4px' }}>
+      <List.Content floated='right'>
+        {state === 'proposed'
+          ? <ApproveAppointmentButton appointmentId={_id}
+            onApproved={this.handleApproved} />
+          : null}
+      </List.Content>
+      <List.Content style={{ marginBottom: '4px' }}>
         <Label color={this.stateToColor(state)}>
           <Icon name={this.stateToIcon(state)}/>
           {state}
@@ -79,7 +95,7 @@ class TutorAppointmentList extends Component {
           {`$${cost.toFixed(2)}`}
         </Label>
       </List.Content>
-      <List.Content style={{ textAlign: 'center' }}>
+      <List.Content>
         At <Label color='brown'>
           <Icon name='marker'/>
           {location}

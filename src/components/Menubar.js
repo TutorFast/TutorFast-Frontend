@@ -20,11 +20,13 @@ const Menubar =
     onProfile: Function,
   }
 ) =>
-  <Menu pointing secondary>
-    <Menu.Item
-      content='Home'
+  <Menu pointing secondary size='large'>
+    <Menu.Item header
+      content={<span style={{ color: 'white' }}>Tutor<em>Fast</em></span>}
       name='/'
+      color='blue'
       active={path === '/'}
+      style={{ backgroundColor: 'dimgrey' }}
       onClick={onItemClick} />
 
     <Menu.Item
