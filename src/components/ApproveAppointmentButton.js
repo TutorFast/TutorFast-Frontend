@@ -10,7 +10,7 @@ import type Appointment from '~/types/Appointment';
 
 class AcceptAppointmentButton extends Component {
   defaultProps = {
-    onAccept: console.log,
+    onApproved: console.log,
     onError: console.log,
   }
 
@@ -19,7 +19,7 @@ class AcceptAppointmentButton extends Component {
   }
 
   props: {
-    onAccept?: Appointment => {},
+    onApproved?: Appointment => {},
     onError?: Error => {},
     appointmentId: string,
     user: User,
@@ -30,9 +30,9 @@ class AcceptAppointmentButton extends Component {
     this.setState({ loading: true });
 
     approveAppointment(this.props.user, this.props.appointmentId)
-      .then(this.props.onAccept)
+      .then(this.props.onApproved)
       .catch(this.onError)
-      .then(this.setState({ loading: false }))
+      .then(() => this.setState({ loading: false }))
     ;
   }
 

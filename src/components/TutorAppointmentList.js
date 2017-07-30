@@ -61,11 +61,20 @@ class TutorAppointmentList extends Component {
           ? 'cancel'
           : 'red'
 
+  handleApproved = newAppt =>
+    this.setState({
+      list:
+        this.state.list.map(appt => newAppt._id === appt._id
+          ? newAppt
+          : appt),
+    })
+
   renderItem = ({ startDate, endDate, location, state, cost, learner, tutor, subject, _id }, idx) =>
     <List.Item key={idx}>
       <List.Content floated='right'>
         {state === 'proposed'
-          ? <ApproveAppointmentButton appointmentId={_id}/>
+          ? <ApproveAppointmentButton appointmentId={_id}
+            onApproved={this.handleApproved} />
           : null}
       </List.Content>
       <List.Content style={{ marginBottom: '4px' }}>
