@@ -21,11 +21,12 @@ const Menubar =
   }
 ) =>
   <Menu pointing secondary size='large'>
-    <Menu.Item
-      content={<span>Tutor<em>Fast</em></span>}
+    <Menu.Item header
+      content={<span style={{ color: 'white' }}>Tutor<em>Fast</em></span>}
       name='/'
+      color='blue'
       active={path === '/'}
-      style={{ backgroundColor: 'dimgrey', color: 'white' }}
+      style={{ backgroundColor: 'dimgrey' }}
       onClick={onItemClick} />
 
     <Menu.Item
