@@ -1,7 +1,10 @@
 import React from 'react';
-import { Segment, Container, Header, Button, Grid } from 'semantic-ui-react';
+import { Segment, Container, Header, Button, Grid, Label } from 'semantic-ui-react';
 import { connect } from 'react-redux';
 import { push } from 'react-router-redux';
+
+import StripeBlerb from './StripeBlerb';
+import MailgunBlerb from './MailgunBlerb';
 
 
 const HomeView = ({ dispatch } : { dispatch: Function }) =>
@@ -30,7 +33,7 @@ const HomeView = ({ dispatch } : { dispatch: Function }) =>
           <Segment padded>
             <Header as='h1'>Find a Tutor right now!</Header>
             <p style={{ fontSize: '20px' }}>
-          If you want to learn, we have what you're looking for.
+              If you want to learn, we have what you're looking for.
             </p>
 
             <Button primary
@@ -39,11 +42,13 @@ const HomeView = ({ dispatch } : { dispatch: Function }) =>
               labelPosition='right'
               onClick={() => dispatch(push('/search'))} />
           </Segment>
+
+          <MailgunBlerb />
         </Grid.Column>
         <Grid.Column width={10}>
-          <Segment padded style={{ textAlign: 'left' }}>
-            <Header as='h1'>Purpose</Header>
-            <p style={{ fontSize: '20px' }}>
+          <Segment padded>
+            <Header as='h1'>The <Label color='black' size='massive' >Tutor<em>Fast</em></Label> Purpose</Header>
+            <p style={{ fontSize: '20px', textAlign: 'left' }}>
               For students of all ages, finding a tutor can be a stressful and
               time consuming activity.  You would normally have to contact different
               tutor services to find tutors that fit your needs and budget.  There
@@ -53,6 +58,8 @@ const HomeView = ({ dispatch } : { dispatch: Function }) =>
               students and tutors.
             </p>
           </Segment>
+
+          <StripeBlerb />
         </Grid.Column>
       </Grid.Row>
     </Grid>
