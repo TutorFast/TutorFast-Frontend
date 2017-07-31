@@ -3,8 +3,8 @@ import { Button } from 'semantic-ui-react';
 
 
 const CloseToastButton = (
-  { children, closeToast, onClick, ...rest } :
-  { children?: Array<{}> | {}, closeToast: Function, onClick: Function, rest?: {} }
+  { children, closeToast = () => {}, onClick, ...rest } :
+  { children?: Array<{}> | {}, closeToast?: Function, onClick: Function, rest?: {} }
 ) =>
   <Button {...rest}
     onClick={() => {
