@@ -3,6 +3,8 @@ import { Segment, Container, Header, Button, Grid, Label } from 'semantic-ui-rea
 import { connect } from 'react-redux';
 import { push } from 'react-router-redux';
 
+import { toast } from '~/util';
+
 import StripeBlerb from './StripeBlerb';
 import MailgunBlerb from './MailgunBlerb';
 
@@ -63,6 +65,12 @@ const HomeView = ({ dispatch } : { dispatch: Function }) =>
               for platforms that could enable an easy and fast communication between
               students and tutors.
             </p>
+            <Button content='Test Toast' onClick={() => toast('test', { 
+              onCloseButtonClick: () => console.log('lksdjf'),
+              closeButtonContent: 'slkdflkdsj',
+              closeButtonType: 'positive',
+              type: 'error',
+            })} />
           </Segment>
         </Grid.Column>
       </Grid.Row>

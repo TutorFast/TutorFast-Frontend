@@ -48,6 +48,7 @@
     "react-router-redux": "next",
     "react-router-transition": "^0.1.1",
     "react-stripe-elements": "^0.0.5",
+    "react-toastify": "^2.0.0-rc.1",
     "redux": "^3.7.0",
     "sass-loader": "^6.0.6",
     "semantic-ui-react": "^0.70.0",
