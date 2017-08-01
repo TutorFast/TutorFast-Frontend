@@ -145,16 +145,9 @@ class TutorSearchView extends Component {
               username,
               wage,
               subjects,
-<<<<<<< HEAD
             }) => ({
               title: username,
               price: `$${wage}/hour`,
-=======
-            }, idx) => ({
-              title: idx.toString(),
-              'data-title': username,
-              price: `$${wage.toFixed(2)}/hour`,
->>>>>>> refs/remotes/origin/master
               description: subjects.join(', '),
             }))
           }
