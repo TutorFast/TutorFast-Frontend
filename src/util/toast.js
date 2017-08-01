@@ -26,6 +26,7 @@ export default (
       onClick={onCloseButtonClick}
       {...closeButtonType ? { [closeButtonType]: true } : {}} />,
     type: type && toast.TYPE[type.toUpperCase()],
+    position: toast.POSITION.BOTTOM_RIGHT,
     ...rest,
   })
 ;

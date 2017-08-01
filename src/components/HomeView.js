@@ -65,12 +65,6 @@ const HomeView = ({ dispatch } : { dispatch: Function }) =>
               for platforms that could enable an easy and fast communication between
               students and tutors.
             </p>
-            <Button content='Test Toast' onClick={() => toast('test', { 
-              onCloseButtonClick: () => console.log('lksdjf'),
-              closeButtonContent: 'slkdflkdsj',
-              closeButtonType: 'positive',
-              type: 'error',
-            })} />
           </Segment>
         </Grid.Column>
       </Grid.Row>
