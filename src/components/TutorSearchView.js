@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Search, Input, Form, Accordion } from 'semantic-ui-react';
+import { Search, Input, Form, Accordion, Image } from 'semantic-ui-react';
 import { connect } from 'react-redux';
 import { Range as _Range, createSliderWithTooltip } from 'rc-slider';
 const Range = createSliderWithTooltip(_Range);
@@ -70,6 +70,15 @@ class TutorSearchView extends Component {
 
   handleZipCodeChange = (_, { value }) => this.setState({ zipCode: value })
 
+  renderResult = ({ image, price, 'data-title': dataTitle, description }) => [
+    image && <div key='image' className='image'><Image src={image} /></div>,
+    <div key='content' className='content'>
+      {price && <div className='price'>{price}</div>}
+      {dataTitle && <div className='title'>{dataTitle}</div>}
+      {description && <div className='description'>{description}</div>}
+    </div>,
+  ]
+
   render() {
     const { isLoading, tutors, subject, minWage, maxWage } = this.state;
     const { maxSliderWage, minSliderWage } = this.props;
@@ -132,12 +141,14 @@ class TutorSearchView extends Component {
               username,
               wage,
               subjects,
-            }) => ({
-              title: username,
-              price: `$${wage}/hour`,
+            }, idx) => ({
+              title: idx.toString(),
+              'data-title': username,
+              price: `$${wage.toFixed(2)}/hour`,
               description: subjects.join(', '),
             }))
           }
+          resultRenderer={this.renderResult}
           placeholder='Search a Subject!'
           value={subject} />
       </Layout>
