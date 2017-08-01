@@ -1,7 +1,8 @@
 import React from 'react';
-import { Switch, Route } from 'react-router';
+import { Router, Switch, Route } from 'react-router';
 import { RouteTransition } from 'react-router-transition';
 
+import HomeView from '~/components/HomeView';
 import Menubar from '~/components/Menubar';
 import SignUp from '~/components/SignUp';
 import SignIn from '~/components/SignIn';
@@ -32,8 +33,7 @@ export default () =>
           <Route exact path='/' component={HomeView} />
           <Route path='/sign-up' component={SignUp} />
           <Route path='/sign-in' component={SignIn} />
-          <Route path='/create-appointment' component={CreateAppointmentView} />
-          <Route path='/create-appointment/:tutor' component={CreateAppointmentView} />
+          <Route path="/create-appointment/:tutor" component={CreateAppointmentView} />
           <Route path='/search' render={
             () => <TutorSearchView maxSliderWage={50} minSliderWage={0} />
           } />

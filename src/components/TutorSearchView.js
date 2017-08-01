@@ -64,7 +64,7 @@ class TutorSearchView extends Component {
         .catch(console.log);
     }
 
-  handleResultSelect = (_, result) => this.props.dispatch(push(`/create-appointment/:${result.title}`))
+  handleResultSelect = (_, result) => this.props.dispatch(push(`/create-appointment/${result.title}`))
   
   handleSearchChange = (_, value) => this.setState({ subject: value })
 

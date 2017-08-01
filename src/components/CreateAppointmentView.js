@@ -8,16 +8,16 @@ import Layout from './LayoutCenterMedium';
 
 class CreateAppointmentView extends Component {
 
+    state = {
+        tutor: '',
+        learner: '',
+    }
+
     static defaultProps = {
-        params: {
-            tutorid: '',
-        },
+        
     }
 
     props: {
-        params: {
-            tutorid: string,
-        },
         /*tutor: {
             str: string,
             token: string,
@@ -25,24 +25,20 @@ class CreateAppointmentView extends Component {
         user: {
             token: string,
         }*/
-}
+    }
 
     componentWillMount = () => {
-        //this.props.tutorid = this.props.params.tutorid;
-        console.log(`!${this.props.params.tutorid}.`);
-        
+
     }
 
     componentDidMount = () => {
-        //this.props.tutorid = this.props.params.tutorid;
-        console.log(`----!${this.props.params.tutorid}.`);
-        
+        this.setState({ tutor:  this.props.match.params.tutor });
     }
 
     render() {
         return (
             <div>
-                <h1>{this.props.params.tutorid}</h1>
+                <h1>{this.state.tutor}</h1>
             </div>
         );
     }
