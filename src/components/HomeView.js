@@ -3,6 +3,8 @@ import { Segment, Container, Header, Button, Grid, Label } from 'semantic-ui-rea
 import { connect } from 'react-redux';
 import { push } from 'react-router-redux';
 
+import { toast } from '~/util';
+
 import StripeBlerb from './StripeBlerb';
 import MailgunBlerb from './MailgunBlerb';
 
