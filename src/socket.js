@@ -1,6 +1,7 @@
 import React from 'react';
 import io from 'socket.io-client';
 import { push } from 'react-router-redux';
+import { Label, Icon } from 'semantic-ui-react';
 
 import {
   socketConnect,
@@ -43,9 +44,10 @@ export const connectSocket = store => {
   });
 
   socket.on('proposal', appointment => {
-    toast(<h5><em>{appointment.learner.username}</em> has Proposed an appointment.</h5>, {
+    toast(<h5><Label horizontal><Icon name='student' />{appointment.learner.username}</Label> has Proposed an appointment.</h5>, {
       onCloseButtonClick: () => store.dispatch(push(`/appointment/${appointment._id}`)),
       closeButtonContent: 'See More',
+      closeButtonIcon: 'right arrow',
       type: 'info',
     });
   });

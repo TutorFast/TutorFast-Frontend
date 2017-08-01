@@ -9,19 +9,23 @@ export default (
   {
     onCloseButtonClick = console.log,
     closeButtonContent = 'Close',
+    closeButtonIcon = 'close',
     closeButtonType,
     type,
     ...rest
     } : {
     onCloseButtonClick: Function,
     closeButtonContent: any,
+    closeButtonIcon: string,
     closeButtonType?: string,
     type?: string,
     rest: {}
   }
 ) =>
   toast(content, {
-    closeButton: <CloseToastButton
+    closeButton: <CloseToastButton image
+      labelPosition='right'
+      icon={closeButtonIcon}
       content={closeButtonContent}
       onClick={onCloseButtonClick}
       {...closeButtonType ? { [closeButtonType]: true } : {}} />,
