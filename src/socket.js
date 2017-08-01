@@ -35,10 +35,8 @@ export const connectSocket = store => {
       socket.emit('auth', socket.id, token, (error, res) => {
         if (error)
           store.dispatch(socketDeauth());
-        else {
-          console.log(socket.id, res);
+        else
           store.dispatch(socketAuth());
-        }
       });
     }
   });

@@ -23,7 +23,7 @@ export default (
   }
 ) =>
   toast(content, {
-    closeButton: <CloseToastButton image
+    closeButton: <CloseToastButton
       labelPosition='right'
       icon={closeButtonIcon}
       content={closeButtonContent}
