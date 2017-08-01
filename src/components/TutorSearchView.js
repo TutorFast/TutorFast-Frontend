@@ -130,11 +130,11 @@ class TutorSearchView extends Component {
           results={
             tutors.map(({
               username,
-              rate,
+              wage,
               subjects,
             }) => ({
               title: username,
-              price: `$${rate}/hour`,
+              price: `$${wage}/hour`,
               description: subjects.join(', '),
             }))
           }
