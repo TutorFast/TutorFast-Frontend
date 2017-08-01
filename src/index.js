@@ -1,11 +1,16 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import App from './containers/App';
 import { AppContainer } from 'react-hot-loader';
 
 import Context, { createContextConfig } from '~/containers/Context';
+import App from '~/containers/App';
 import { getOwnUser } from '~/fetches';
-import { updateUser, signOut } from '~/actions';
+import {
+  updateUser,
+  signOut,
+} from '~/actions';
+import socket, { connectSocket } from '~/socket';
+
 
 let contextConfig;
 
@@ -24,6 +29,8 @@ getOwnUser(contextConfig.store.getState().user.token)
   .catch(() => contextConfig.store.dispatch(signOut()))
 ;
 
+connectSocket(contextConfig.store);
+
 const render = Component =>
   ReactDOM.render(
     <Context {...contextConfig}>
@@ -35,7 +42,9 @@ const render = Component =>
   )
 ;
 
-render(App);
+socket.on('connect', () => {
+  render(App);
+});
 
 if (module.hot)
   module.hot.accept('./containers/App', () => render(App));

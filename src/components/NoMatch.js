@@ -1,17 +1,17 @@
 import React from 'react';
 import { Segment, Image } from 'semantic-ui-react';
 
-import Layout from './LayoutCenterSmall';
+import { Container } from 'semantic-ui-react';
 
 export default
 (
   { location } :
   { location: { pathname: string } }
 ) =>
-  <Layout>
+  <Container>
     <Segment color='red' padded style={{ textAlign: 'center' }}>
       <Image src='/not-found.png' />
       <h3>No match for <code>{location.pathname}</code></h3>
     </Segment>
-  </Layout>
+  </Container>
 ;

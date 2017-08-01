@@ -1,6 +1,8 @@
 import React from 'react';
 import { Switch, Route } from 'react-router';
 import { RouteTransition } from 'react-router-transition';
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.min.css';
 
 import Menubar from '~/components/Menubar';
 import SignUp from '~/components/SignUp';
@@ -13,9 +15,19 @@ import HomeView from '~/components/HomeView';
 
 import PrivateRoute from './PrivateRoute';
 
+
 export default () =>
   <div>
     <Menubar />
+    <ToastContainer
+      position='top-right'
+      type='default'
+      autoClose={5000}
+      hideProgressBar={false}
+      newestOnTop={false}
+      closeOnClick
+      pauseOnHover />
+
     <Route render={({ location }) =>
       <RouteTransition
         pathname={location.pathname.split('/').slice(0, 2).join('/')}
