@@ -89,7 +89,6 @@ class AppointmentView extends Component {
       ...appts.filter(appt => appt.state === 'proposed'),
       ...appts.filter(appt => appt.state === 'approved'),
       ...appts.filter(appt => appt.state === 'rejected'),
-
     ]
 
   panes = [
