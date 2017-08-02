@@ -1,5 +1,5 @@
 import React from 'react';
-import { Switch, Route } from 'react-router';
+import { Switch, Route, Redirect } from 'react-router';
 import { RouteTransition } from 'react-router-transition';
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.min.css';
@@ -48,6 +48,7 @@ export default () =>
           <Route path='/sign-in' component={SignIn} />
           <Route exact path='/appointment/tutor' component={TutorAppointmentListView} /> 
           <PrivateRoute path='/appointment/:appointmentId' component={AppointmentView} />
+          <Redirect from='/appointment' to='/appointment/nothing' />
           <Route path='/search' render={
             () => <TutorSearchView maxSliderWage={50} minSliderWage={0} />
           } />

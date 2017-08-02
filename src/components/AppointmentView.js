@@ -75,17 +75,24 @@ class AppointmentView extends Component {
       },
     }))
 
+  renderAppt = (appt, idx) => appt._id === this.props.params.appointmentId
+    ? <AppointmentCard selected onApproved={this.handleApproved} onRejected={this.handleRejected} key={idx} appointment={appt}/>
+    : <AppointmentCard disabled onClick={this.handleCardClick(appt._id)} key={idx} appointment={appt}/>
+
   renderAppts = appts =>
     <Card.Group itemsPerRow='3' stackable>
-      {appts.map((appt, idx) => appt._id === this.props.params.appointmentId
-        ? <AppointmentCard selected onApproved={this.handleApproved} onRejected={this.handleRejected} key={idx} appointment={appt}/>
-        : <AppointmentCard disabled onClick={this.handleCardClick(appt._id)} key={idx} appointment={appt}/>)}
+      {this.sortAppts(appts).map(this.renderAppt)}
     </Card.Group>
+
+  sortAppts = appts =>
+    [...appts.filter(appt => appt.state !== 'rejected'), ...appts.filter(appt => appt.state === 'rejected')]
 
   panes = [
     { menuItem: 'Appointments as Tutor',
       render: () => <Tab.Pane loading={Boolean(this.state.loading)}>
-        {this.renderAppts(this.state.appts.asTutor)}
+        {this.state.appts.asTutor.length !== 0
+          ? this.renderAppts(this.state.appts.asTutor)
+          : <Header>There are not appointments where you are the tutor.</Header>}
       </Tab.Pane>,
     },
     { menuItem: 'Appointments as Learner',
