@@ -85,7 +85,12 @@ class AppointmentView extends Component {
     </Card.Group>
 
   sortAppts = appts =>
-    [...appts.filter(appt => appt.state !== 'rejected'), ...appts.filter(appt => appt.state === 'rejected')]
+    [
+      ...appts.filter(appt => appt.state === 'proposed'),
+      ...appts.filter(appt => appt.state === 'approved'),
+      ...appts.filter(appt => appt.state === 'rejected'),
+
+    ]
 
   panes = [
     { menuItem: 'Appointments as Tutor',

@@ -12,12 +12,14 @@ const Menubar =
     onItemClick,
     onSignOut,
     onProfile,
+    onAppointments,
     } : {
     path: string,
     user: {},
     onItemClick: Function,
     onSignOut: Function,
     onProfile: Function,
+    onAppointments: Function,
   }
 ) =>
   <Menu pointing secondary size='large'>
@@ -34,6 +36,16 @@ const Menubar =
       name='/search'
       active={path === '/search'}
       onClick={onItemClick} />
+
+    {
+      user.token
+        ? <Menu.Item
+          content='Your Appointments'
+          name={'/appointment'}
+          active={/^\/appointment/.test(path)}
+          onClick={onAppointments} />
+        : null
+    }
 
     <Menu.Menu position='right'>
       {
@@ -86,5 +98,6 @@ export default connect(
       dispatch(push('/'));
     },
     onProfile: () => dispatch(push('/user')),
+    onAppointments: () => dispatch(push('/appointment')),
   }),
 )(Menubar);
