@@ -2,15 +2,15 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Button } from 'semantic-ui-react';
 
-import { approveAppointment } from '~/fetches';
+import { rejectAppointment } from '~/fetches';
 
 import type User from '~/types/User';
 import type Appointment from '~/types/Appointment';
 
 
-class AcceptAppointmentButton extends Component {
+class RejectAppointmentButton extends Component {
   defaultProps = {
-    onApproved: console.log,
+    onRejected: console.log,
     onError: console.log,
     disabled: false,
   }
@@ -20,7 +20,7 @@ class AcceptAppointmentButton extends Component {
   }
 
   props: {
-    onApproved?: ({ appointment: Appointment, message: string }) => {},
+    onRejected?: Appointment => {},
     onError?: Error => {},
     appointmentId: string,
     disabled?: boolean,
@@ -31,8 +31,8 @@ class AcceptAppointmentButton extends Component {
   handleClick = () => {
     this.setState({ loading: true });
 
-    approveAppointment(this.props.user, this.props.appointmentId)
-      .then(this.props.onApproved)
+    rejectAppointment(this.props.user, this.props.appointmentId)
+      .then(this.props.onRejected)
       .catch(this.onError)
       .then(() => this.setState({ loading: false }))
     ;
@@ -40,8 +40,8 @@ class AcceptAppointmentButton extends Component {
 
   render() {
     return (
-      <Button positive basic disabled={this.props.disabled}
-        content='Approve'
+      <Button negative basic disabled={this.props.disabled}
+        content='Reject'
         onClick={this.handleClick}
         loading={this.state.loading} />
     );
@@ -50,4 +50,4 @@ class AcceptAppointmentButton extends Component {
 
 export default connect(
   ({ user }) => ({ user }),
-)(AcceptAppointmentButton);
+)(RejectAppointmentButton);
