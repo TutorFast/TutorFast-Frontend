@@ -10,4 +10,5 @@ export { default as deauthStripe } from './deauthStripe';
 export { default as getAppointments } from './getAppointments';
 export { default as getAppointment } from './getAppointment';
 export { default as approveAppointment } from './approveAppointment';
+export { default as createAppointment } from './createAppointment';
 export { default as rejectAppointment } from './rejectAppointment';

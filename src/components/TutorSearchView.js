@@ -64,7 +64,10 @@ class TutorSearchView extends Component {
         .catch(console.log);
     }
 
-  handleResultSelect = (_, result) => this.props.dispatch(push(`/create-appointment/${result.title}`))
+  handleResultSelect = (_, result) => {
+    //TODO: check if user is logged in, if not, then make popup saying they must log in
+    this.props.dispatch(push(`/create-appointment/${result.id}`));
+  }
   
   handleSearchChange = (_, value) => this.setState({ subject: value })
 
@@ -145,13 +148,15 @@ class TutorSearchView extends Component {
               username,
               wage,
               subjects,
-            }) => ({
+              _id,
+            }, idx) => ({
               title: username,
               price: `$${wage}/hour`,
               description: subjects.join(', '),
+              id: _id,
             }))
           }
-          resultRenderer={this.renderResult}
+          //resultRenderer={this.renderResult}
           placeholder='Search a Subject!'
           value={subject} />
       </Layout>
