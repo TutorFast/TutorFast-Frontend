@@ -7,6 +7,7 @@ import { toast } from '~/util';
 
 import StripeBlerb from './StripeBlerb';
 import MailgunBlerb from './MailgunBlerb';
+import SocketBlerb from './SocketBlerb';
 
 
 const HomeView = ({ dispatch } : { dispatch: Function }) =>
@@ -18,7 +19,6 @@ const HomeView = ({ dispatch } : { dispatch: Function }) =>
       <p style={{ fontSize: '20px', marginBottom: '40px' }}>
         Working to close the gap between Tutors and Learners everywhere!
       </p>
-
       <Button.Group inverted size='huge' style={{ marginBottom: '60px' }}>
         <Button primary onClick={() => dispatch(push('/sign-in'))}>
           Sign In
@@ -69,11 +69,12 @@ const HomeView = ({ dispatch } : { dispatch: Function }) =>
         </Grid.Column>
       </Grid.Row>
       <Grid.Row>
-        <Grid.Column width={10}>
+        <Grid.Column width={9}>
           <StripeBlerb />
         </Grid.Column>
-        <Grid.Column width={6}>
+        <Grid.Column width={7}>
           <MailgunBlerb />
+          <SocketBlerb />
         </Grid.Column>
       </Grid.Row>
     </Grid>

@@ -55,6 +55,7 @@
     "socket.io-client": "^2.0.3",
     "stripe-client": "^1.1.2",
     "style-loader": "^0.18.2",
+    "time-input": "^1.5.1",
     "webpack": "^3.0.0",
     "webpack-dev-server": "^2.5.0",
     "with-query": "^1.0.2"
