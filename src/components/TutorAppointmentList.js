@@ -29,10 +29,11 @@ class TutorAppointmentList extends Component {
 
   readify = (start, end) =>
     <div style={{ display: 'inline-block' }}>
-      <Label color='violet'>
+      <Label 
+        color='violet'
+        content={new Date(start).toLocaleDateString()} />
         <Icon name='calendar' />
-        {new Date(start).toLocaleDateString()}
-      </Label> from <Label color='blue' image>
+      <Label color='blue' image>
         {new Date(start).toLocaleTimeString()}
         <Label.Detail>Start</Label.Detail>
       </Label> <Icon name='angle right' />

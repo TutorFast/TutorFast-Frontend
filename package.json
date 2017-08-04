@@ -43,6 +43,7 @@
     "react-dom": "^15.6.1",
     "react-grid-system": "^2.9.2",
     "react-hot-loader": "next",
+    "react-numeric-input": "^2.1.0",
     "react-payment": "^0.1.7",
     "react-redux": "^5.0.5",
     "react-router-dom": "^4.1.1",
