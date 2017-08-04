@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { Search, Input, Form, Accordion, Image } from 'semantic-ui-react';
 import { connect } from 'react-redux';
+import { push } from 'react-router-redux';
 import { Range as _Range, createSliderWithTooltip } from 'rc-slider';
 const Range = createSliderWithTooltip(_Range);
 
@@ -38,8 +39,9 @@ class TutorSearchView extends Component {
   }
 
   props: {
-    maxSliderWage: ?number,
-    minSliderWage: ?number,
+    maxSliderWage?: number,
+    minSliderWage?: number,
+    dispatch: Function,
   }
 
 
@@ -60,9 +62,9 @@ class TutorSearchView extends Component {
         .catch(console.log);
     }
 
-  handleResultSelect = (_, result) => this.setState({ subject: result })
+  handleResultSelect = (_, { result }) => this.setState({ subject: result })
 
-  handleSearchChange = (_, value) => this.setState({ subject: value })
+  handleSearchChange = (_, { value }) => this.setState({ subject: value })
 
   handleSliderChange = ([minWage, maxWage]) => this.setState({ minWage, maxWage })
 
@@ -141,11 +143,13 @@ class TutorSearchView extends Component {
               username,
               wage,
               subjects,
+              _id,
             }, idx) => ({
               title: idx.toString(),
               'data-title': username,
               price: `$${wage.toFixed(2)}/hour`,
               description: subjects.join(', '),
+              onClick: () => this.props.dispatch(push(`/create-appointment/${_id}`)),
             }))
           }
           resultRenderer={this.renderResult}
@@ -156,6 +160,4 @@ class TutorSearchView extends Component {
   }
 }
 
-export default connect(
-
-)(TutorSearchView);
+export default connect()(TutorSearchView);
