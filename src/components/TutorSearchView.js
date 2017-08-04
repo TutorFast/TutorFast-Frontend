@@ -62,9 +62,9 @@ class TutorSearchView extends Component {
         .catch(console.log);
     }
 
-  handleResultSelect = (_, result) => this.setState({ subject: result })
+  handleResultSelect = (_, { result }) => this.setState({ subject: result })
 
-  handleSearchChange = (_, value) => this.setState({ subject: value })
+  handleSearchChange = (_, { value }) => this.setState({ subject: value })
 
   handleSliderChange = ([minWage, maxWage]) => this.setState({ minWage, maxWage })
 

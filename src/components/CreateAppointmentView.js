@@ -59,7 +59,10 @@ class CreateAppointmentView extends Component {
   }
 
   handleSelecting = ({ start }) => start >= Date.now()
-  handleSelectSlot = event => event.start >= Date.now() && this.setState({ events: [event] })
+  handleSelectSlot = event =>
+    event.start >= Date.now() &&
+    event.start !== event.end &&
+    this.setState({ events: [event] })
 
   handleSubmit = () => {
     if (!this.valid()) return;
@@ -81,7 +84,6 @@ class CreateAppointmentView extends Component {
   handleChange = (_, { name, value }) => this.setState({ [name]: value })
 
   render() {
-    console.log(this.state);
     return (
       <Container>
         <Segment loading={Boolean(this.state.loading)}>
@@ -105,8 +107,8 @@ class CreateAppointmentView extends Component {
             </Form.Group>
 
             <Form.Field>
-              <label>Choose a date and time.</label>
-              <Calendar selectable toolbar={false}
+              <label>Choose a date and time. ({`$${this.state.tutor ? this.state.tutor.wage.toFixed(2) : '?.??'}/hour`})</label>
+              <Calendar selectable
                 defaultDate={new Date(Date.now())}
                 defaultView={'week'}
                 views={['week', 'day']}
