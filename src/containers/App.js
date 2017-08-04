@@ -13,6 +13,7 @@ import TutorSearchView from '~/components/TutorSearchView';
 import TutorAppointmentListView from '~/components/TutorAppointmentListView';
 import HomeView from '~/components/HomeView';
 import AppointmentView from '~/components/AppointmentView';
+import CreateAppointmentView from '~/components/CreateAppointmentView';
 
 import PrivateRoute from './PrivateRoute';
 
@@ -46,7 +47,8 @@ export default () =>
           <Route exact path='/' component={HomeView} />
           <Route path='/sign-up' component={SignUp} />
           <Route path='/sign-in' component={SignIn} />
-          <Route exact path='/appointment/tutor' component={TutorAppointmentListView} /> 
+          <PrivateRoute path='/create-appointment/:tutorId' component={CreateAppointmentView} />
+          <Route exact path='/appointment/tutor' component={TutorAppointmentListView} />
           <PrivateRoute path='/appointment/:appointmentId' component={AppointmentView} />
           <Redirect from='/appointment' to='/appointment/nothing' />
           <Route path='/search' render={

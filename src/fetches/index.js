@@ -1,5 +1,6 @@
 export { default as createUser } from './createUser';
 export { default as createSession } from './createSession';
+export { default as getUser } from './getUser';
 export { default as getOwnUser } from './getOwnUser';
 export { default as updateUser } from './updateUser';
 export { default as deleteUser } from './deleteUser';
