@@ -12,6 +12,7 @@ import AppointmentCard from './AppointmentCard';
 class AppointmentView extends Component {
   state = {
     loading: null,
+    activeTabIndex: 0,
     appts: {
       asTutor: [],
       asLearner: [],
@@ -46,7 +47,7 @@ class AppointmentView extends Component {
 
   _fetchAppts = () =>
     this.state.loading || getAppointments(this.props.user)
-      .then(appts => this.setState({ loading: null, appts }))
+      .then(appts => this.setState({ loading: null, appts, activeTabIndex: this.defaultPane(appts) }))
       .catch(console.log)
 
   props: {
@@ -108,9 +109,9 @@ class AppointmentView extends Component {
     },
   ]
 
-  defaultPane = () => {
+  defaultPane = appts => {
     if (
-      this.state.appts.asLearner
+      appts.asLearner
       .filter(
         appt => appt._id === this.props.params.appointmentId
       ).length === 0
@@ -118,10 +119,13 @@ class AppointmentView extends Component {
 
     return 1;
   }
+
+  handleTabChange = (_, { activeIndex }) => this.setState({ activeTabIndex: activeIndex })
+
   render() {
     return (
       <Container>
-        <Tab menu={{ pointing: true, widths: 2 }} defaultActiveIndex={this.defaultPane()} panes={this.panes} />
+        <Tab panes={this.panes} activeIndex={this.state.activeTabIndex} onTabChange={this.handleTabChange} menu={{ pointing: true, widths: 2 }} />
       </Container>
     );
   }
