@@ -24,7 +24,7 @@ class CreateAppointmentView extends Component {
         tutorid: '',
         tutor: {},
         learner: {},
-        startTime: '',
+        startTime: '13:00',
         hours: '0',
         date: moment(),
         startDate: new Date(),
@@ -75,7 +75,14 @@ class CreateAppointmentView extends Component {
         this.setState({ cost : (this.state.tutor.wage * value)});
     }
 
-    onDateChangeHandler = (value) => this.setState({ date: value })
+    onDateChangeHandler = (value) => {
+        var temp = new Date(value);
+        var time = this.state.startTime.split(":");
+        temp.setHours(Number(time[0]), Number(time[1]));
+        this.setState({ startDate : temp });   
+        this.setState({ endDate : temp });
+        this.setState({ date : value });
+    }
 
     onLocationChangeHandler = (_, { value }) => this.setState({ location : value })
 
@@ -84,9 +91,8 @@ class CreateAppointmentView extends Component {
     handleSubmit = () => {
 
         const { learner, tutor, subject, location, startDate, endDate, cost, state} = this.state;
-        console.log(`cost : ${this.state.cost}`);
-        console.log(`subject : ${this.state.subject}`);
-        console.log(`Number(cost) : ${Number(this.state.cost)}`);
+        endDate.setHours((this.state.endDate.getHours() + Number(this.state.hours)));
+
         this.onSubmit({
             learner: learner,
             tutor: tutor,
@@ -155,7 +161,7 @@ class CreateAppointmentView extends Component {
                         content="Start Time"
                     />
                     <TimeInput
-                        value={this.state.startTime || '12:00 PM'}
+                        value={this.state.startTime}
                         onChange={this.startTimeChangeHandler}
                     />
 
@@ -183,8 +189,8 @@ class CreateAppointmentView extends Component {
                     <NumericInput
                         min={0}
                         max={10}
-                        step={.5}
-                        precision={2}
+                        step={1}
+                        precision={1}
                         value={this.state.hours}
                         onChange={this.onHoursChangeHandler}
                         placeholder='Hours'
