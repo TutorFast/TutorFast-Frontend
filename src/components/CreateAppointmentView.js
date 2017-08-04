@@ -2,7 +2,7 @@ import  React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Router, Route } from 'react-router';
 import { push } from 'react-router-redux';
-import { Dropdown, Header, Segment, Button, Divider, Label, Input } from 'semantic-ui-react';
+import { Message, Dropdown, Header, Segment, Button, Divider, Label, Input } from 'semantic-ui-react';
 import Layout from './LayoutCenterMedium';
 
 import { pipe } from '~/util';
@@ -33,6 +33,8 @@ class CreateAppointmentView extends Component {
         location: '',
         subject: '',
         state: '',
+        errorLocation: false,
+        errorSubject: false,
     }
 
     static defaultProps = {
@@ -89,6 +91,16 @@ class CreateAppointmentView extends Component {
     onDropdownChangeHandler = (e, data) => this.setState({ subject : data.value });
     
     handleSubmit = () => {
+
+        if (!this.state.subject) {
+            console.log(`No subject!`);
+            this.setState({ errorSubject : true });
+        }
+
+        if (!this.state.location) {
+            console.log(`No location!`);
+            this.setState({ errorLocation : true });
+        }
 
         const { learner, tutor, subject, location, startDate, endDate, cost, state} = this.state;
         endDate.setHours((this.state.endDate.getHours() + Number(this.state.hours)));
@@ -210,6 +222,18 @@ class CreateAppointmentView extends Component {
                         onClick={this.handleSubmit}
                     />
 
+                    {this.state.errorLocation ? 
+                        <Message 
+                            content='Error: Invalid Location'
+                            error
+                        /> : null}
+
+                    {this.state.errorSubject ? 
+                        <Message 
+                            content='Error: Invalid Subject'
+                            error
+                        /> : null}
+
                 </Segment>
             </Layout>
         );
@@ -221,8 +245,6 @@ class CreateAppointmentView extends Component {
 export default connect(
     ({ user }) => ({ user: user, token: user.token }),
     dispatch => ({
-        onCreate: ( appointment, token ) => {
-
-        }
+        onCreate: ( appointment, token ) => dispatch(push('/appointment'))
     })
 )(CreateAppointmentView)
