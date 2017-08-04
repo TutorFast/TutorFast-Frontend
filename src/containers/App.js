@@ -47,8 +47,8 @@ export default () =>
           <Route exact path='/' component={HomeView} />
           <Route path='/sign-up' component={SignUp} />
           <Route path='/sign-in' component={SignIn} />
-          <Route path="/create-appointment/:tutor" component={CreateAppointmentView} />
-          <Route exact path='/appointment/tutor' component={TutorAppointmentListView} /> 
+          <PrivateRoute path='/create-appointment/:tutor' component={CreateAppointmentView} />
+          <Route exact path='/appointment/tutor' component={TutorAppointmentListView} />
           <PrivateRoute path='/appointment/:appointmentId' component={AppointmentView} />
           <Redirect from='/appointment' to='/appointment/nothing' />
           <Route path='/search' render={

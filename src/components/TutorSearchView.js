@@ -1,13 +1,9 @@
 import React, { Component } from 'react';
 import { Search, Input, Form, Accordion, Image } from 'semantic-ui-react';
 import { connect } from 'react-redux';
-<<<<<<< HEAD
 import { Router, Route } from 'react-router';
 import { push } from 'react-router-redux';
 
-=======
-import { push } from 'react-router-redux';
->>>>>>> fix-appt-page
 import { Range as _Range, createSliderWithTooltip } from 'rc-slider';
 const Range = createSliderWithTooltip(_Range);
 
@@ -45,13 +41,8 @@ class TutorSearchView extends Component {
   }
 
   props: {
-<<<<<<< HEAD
-    maxSliderWage: ?number,
-    minSliderWage: ?number,
-=======
     maxSliderWage?: number,
     minSliderWage?: number,
->>>>>>> fix-appt-page
     dispatch: Function,
   }
 
@@ -73,19 +64,9 @@ class TutorSearchView extends Component {
         .catch(console.log);
     }
 
-<<<<<<< HEAD
-  handleResultSelect = (_, result) => {
-    //TODO: check if user is logged in, if not, then make popup saying they must log in
-    this.setState({ subject : result });
-    this.props.dispatch(push(`/create-appointment/${result.id}`));
-  }
-  
-  handleSearchChange = (_, value) => this.setState({ subject: value })
-=======
   handleResultSelect = (_, { result }) => this.setState({ subject: result })
 
   handleSearchChange = (_, { value }) => this.setState({ subject: value })
->>>>>>> fix-appt-page
 
   handleSliderChange = ([minWage, maxWage]) => this.setState({ minWage, maxWage })
 
@@ -169,11 +150,7 @@ class TutorSearchView extends Component {
               title: username,
               price: `$${wage.toFixed(2)}/hour`,
               description: subjects.join(', '),
-<<<<<<< HEAD
-              id: _id,
-=======
               onClick: () => this.props.dispatch(push(`/create-appointment/${_id}`)),
->>>>>>> fix-appt-page
             }))
           }
           //resultRenderer={this.renderResult}
