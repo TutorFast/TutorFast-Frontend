@@ -152,7 +152,7 @@ class TutorSearchView extends Component {
               _id,
             }, idx) => ({
               title: username,
-              price: `$${wage}/hour`,
+              price: `$${wage.toFixed(2)}/hour`,
               description: subjects.join(', '),
               id: _id,
             }))
