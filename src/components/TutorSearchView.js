@@ -66,6 +66,7 @@ class TutorSearchView extends Component {
 
   handleResultSelect = (_, result) => {
     //TODO: check if user is logged in, if not, then make popup saying they must log in
+    this.setState({ subject : result });
     this.props.dispatch(push(`/create-appointment/${result.id}`));
   }
   
