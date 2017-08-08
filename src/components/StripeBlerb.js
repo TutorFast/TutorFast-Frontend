@@ -4,6 +4,7 @@ import { Image, Segment } from 'semantic-ui-react';
 const StripeBlerb = () =>
   <Segment padded>
     <Image fluid
+      alt='Stripe'
       src='/stripe/Blue/Stripe Logo (blue).svg'
       target='_blank' href='https://stripe.com' />
     <p style={{ fontSize: '20px', textAlign: 'left' }}>
