@@ -5,6 +5,7 @@ const SocketBlerb = () =>
   <Segment padded>
     <Image fluid
       src='/socket.io.svg'
+      alt='Socket.IO'
       target='_blank' href='https://socket.io' />
     <p style={{ fontSize: '20px', textAlign: 'left' }}>
       Socket.IO allows Tutors to recieve instant notifications about

@@ -4,6 +4,7 @@ import { Image, Segment } from 'semantic-ui-react';
 const MailgunBlerb = () =>
   <Segment padded>
     <Image fluid
+      alt='Mailgun'
       src='/Mailgun_Secondary.png'
       href='https://www.mailgun.com' target='_blank'/>
     <p style={{ fontSize: '20px', textAlign: 'left' }}>
